@@ -1,18 +1,16 @@
-public class Signal implements Component
+public class Signal extends Component
 {
   private Component leftComponent, rightComponent;
   private boolean locked;
   private int trackX, trackY, guiX, guiY;
 
-  public Signal(int trackX, int trackY, int guiX, int guiY,
-                Component leftComponent, Component rightComponent)
+  public Signal(int id, int trackX, int trackY, int guiX, int guiY, Component leftComponent)
   {
     this.trackX = trackX;
     this.trackY = trackY;
     this.guiX = guiX;
     this.guiY = guiY;
     this.leftComponent = leftComponent;
-    this.rightComponent = rightComponent;
     locked = true;
   }
 

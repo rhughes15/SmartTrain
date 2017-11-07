@@ -1,0 +1,258 @@
+{
+	"maxTrains": 1,
+	"components": [
+		{
+			"id": 0,
+			"type": "station",
+			"x": 0,
+			"y": 0,
+			"length": 1
+		},
+		{
+			"id": 1,
+			"type": "track",
+			"x": 1,
+			"y": 0,
+			"length": 1
+		},
+		{
+			"id": 2,
+			"type": "signal",
+			"x": 2,
+			"y": 0,
+			"length": 1
+		},
+		{
+			"id": 3,
+			"type": "trswitch",
+			"x": 3,
+			"y": 0,
+			"length": 1,
+			"partner": 16
+		},
+		{
+			"id": 4,
+			"type": "signal",
+			"x": 4,
+			"y": 0,
+			"length": 1
+		},
+		{
+			"id": 5,
+			"type": "track",
+			"x": 5,
+			"y": 0,
+			"length": 1
+		},
+		{
+			"id": 6,
+			"type": "signal",
+			"x": 6,
+			"y": 0,
+			"length": 1
+		},
+		{
+			"id": 7,
+			"type": "tlswitch",
+			"x": 7,
+			"y": 0,
+			"length": 1,
+			"partner": 20
+		},
+		{
+			"id": 8,
+			"type": "signal",
+			"x": 8,
+			"y": 0,
+			"length": 1
+		},
+		{
+			"id": 9,
+			"type": "track",
+			"x": 9,
+			"y": 0,
+			"length": 1
+		},
+		{
+			"id": 10,
+			"type": "station",
+			"x": 10,
+			"y": 0,
+			"length": 1
+		},
+		{
+			"id": 11,
+			"type": "station",
+			"x": 0,
+			"y": 1,
+			"length": 1
+		},
+		{
+			"id": 12,
+			"type": "track",
+			"x": 1,
+			"y": 1,
+			"length": 1
+		},
+		{
+			"id": 13,
+			"type": "signal",
+			"x": 2,
+			"y": 1,
+			"length": 1
+		},
+		{
+			"id": 14,
+			"type": "tlswitch",
+			"x": 3,
+			"y": 1,
+			"length": 1,
+			"partner": 27
+		},
+		{
+			"id": 15,
+			"type": "signal",
+			"x": 4,
+			"y": 1,
+			"length": 1
+		},
+		{
+			"id": 16,
+			"type": "brswitch",
+			"x": 5,
+			"y": 1,
+			"length": 1,
+			"partner": 3
+		},
+		{
+			"id": 17,
+			"type": "signal",
+			"x": 6,
+			"y": 1,
+			"length": 1
+		},
+		{
+			"id": 18,
+			"type": "trswitch",
+			"x": 7,
+			"y": 1,
+			"length": 1,
+			"partner": 31
+		},
+		{
+			"id": 19,
+			"type": "signal",
+			"x": 8,
+			"y": 1,
+			"length": 1
+		},
+		{
+			"id": 20,
+			"type": "blswitch",
+			"x": 9,
+			"y": 1,
+			"length": 1,
+			"partner": 7
+		},
+		{
+			"id": 21,
+			"type": "signal",
+			"x": 10,
+			"y": 1,
+			"length": 1
+		},
+		{
+			"id": 22,
+			"type": "track",
+			"x": 11,
+			"y": 1,
+			"length": 1
+		},
+		{
+			"id": 23,
+			"type": "station",
+			"x": 12,
+			"y": 1,
+			"length": 1
+		},
+		{
+			"id": 24,
+			"type": "station",
+			"x": 0,
+			"y": 2,
+			"length": 1
+		},
+		{
+			"id": 25,
+			"type": "track",
+			"x": 1,
+			"y": 2,
+			"length": 1
+		},
+		{
+			"id": 26,
+			"type": "signal",
+			"x": 2,
+			"y": 2,
+			"length": 1
+		},
+		{
+			"id": 27,
+			"type": "blswitch",
+			"x": 3,
+			"y": 2,
+			"length": 1,
+			"partner": 14
+		},
+		{
+			"id": 28,
+			"type": "signal",
+			"x": 4,
+			"y": 2,
+			"length": 1
+		},
+		{
+			"id": 29,
+			"type": "track",
+			"x": 5,
+			"y": 2,
+			"length": 1
+		},
+		{
+			"id": 30,
+			"type": "signal",
+			"x": 6,
+			"y": 2,
+			"length": 1
+		},
+		{
+			"id": 31,
+			"type": "brswitch",
+			"x": 7,
+			"y": 2,
+			"length": 1,
+			"partner": 18
+		},
+		{
+			"id": 32,
+			"type": "signal",
+			"x": 8,
+			"y": 2,
+			"length": 1
+		},
+		{
+			"id": 33,
+			"type": "track",
+			"x": 9,
+			"y": 2,
+			"length": 1
+		},
+		{
+			"id": 34,
+			"type": "station",
+			"x": 10,
+			"y": 2,
+			"length": 1
+		}
+	]
+}

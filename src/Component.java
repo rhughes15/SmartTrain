@@ -1,5 +1,10 @@
-public interface Component extends Runnable
+public abstract class Component implements Runnable
 {
-  void acceptMessage(String message);
-  void lock();
+  abstract void acceptMessage(String message);
+  abstract void lock();
+  public Component rightComponent;
+  public void setRightComponent(Component component)
+  {
+    this.rightComponent= component;
+  }
 }
