@@ -84,7 +84,7 @@ public class Builder
                    }
                    else if (type.contains("station"))
                    {
-                       
+
                        Station component = new Station(id, x, y, 0, 0);
                        componentList.add(component);
                        lastComponent = component;
