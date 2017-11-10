@@ -1,6 +1,6 @@
 public abstract class Switch extends Component
 {
-  private Component leftComponent, rightComponent, switchComponent;
+  private Component leftComponent, partnerComponent;
   private int trackX, trackY, guiX, guiY, partnerId, id;
   private boolean locked;
   protected boolean[] canGoFromLeft, canGoFromRight, canGoFromSwitch;
@@ -15,7 +15,10 @@ public abstract class Switch extends Component
     this.partnerId = partnerId;
     locked = false;
   }
-
+  public void setPartner(Component component)
+  {
+    partnerComponent = component;
+  }
   @Override
   public void acceptMessage(String message)
   {
