@@ -17,13 +17,16 @@ public class Builder
     Switch tlSwitch, trSwitch, blSwitch, brSwitch;
     Component lastComponent;
     List<Component> componentList = new ArrayList<Component>();
-
+    public Builder()
+    {
+        buildTracksFromJSON();
+    }
     public List<Component> getComponentList()
     {
         return componentList;
     }
 
-    public void buildTracksFromJSON()
+    private void buildTracksFromJSON()
     {
 
         JSONParser parser = new JSONParser();
