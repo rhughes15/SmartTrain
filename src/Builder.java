@@ -48,10 +48,9 @@ public class Builder
                    System.out.println("id: " + id + ", x:" + x + ", y:" + y + ", type:" + type);
                    if(type.contains("switch"))
                    {
-                       int partnerID = ((Long) object1.get("partner")).intValue();
                        if(type.contains("bl"))
                        {
-                           BLSwitch component = new BLSwitch(id, x,y,0,0,partnerID, lastComponent);
+                           BLSwitch component = new BLSwitch(id, x,y, lastComponent);
                            blSwitch = component;
                            component.setPartner(tlSwitch);
                            tlSwitch.setPartner(component);
@@ -61,7 +60,7 @@ public class Builder
                        }
                        else if(type.contains("br"))
                        {
-                           BRSwitch component = new BRSwitch(id, x,y,0,0,partnerID, lastComponent);
+                           BRSwitch component = new BRSwitch(id, x,y, lastComponent);
                            brSwitch = component;
                            component.setPartner(trSwitch);
                            trSwitch.setPartner(component);
@@ -71,7 +70,7 @@ public class Builder
                        }
                        else if(type.contains("tl"))
                        {
-                           TLSwitch component = new TLSwitch(id, x,y,0,0,partnerID, lastComponent);
+                           TLSwitch component = new TLSwitch(id, x,y, lastComponent);
                            tlSwitch = component;
                            componentList.add(component);
                            lastComponent.setRightComponent(component);
@@ -79,7 +78,7 @@ public class Builder
                        }
                        else
                        {
-                           TRSwitch component = new TRSwitch(id, x,y,0,0,partnerID, lastComponent);
+                           TRSwitch component = new TRSwitch(id, x,y, lastComponent);
                            trSwitch = component;
                            componentList.add(component);
                            lastComponent.setRightComponent(component);
@@ -88,14 +87,15 @@ public class Builder
                    }
                    else if (type.contains("track"))
                    {
-                       Track component = new Track(id, length, x,y,0,0, lastComponent);
+                       Track component = new Track(id, length, x,y, lastComponent);
                        componentList.add(component);
                        lastComponent.setRightComponent(component);
                        lastComponent = component;
                    }
                    else if (type.contains("signal"))
                    {
-                       Signal component = new Signal(id, x,y,0,0,lastComponent);
+
+                       Signal component = new Signal(id, x,y,lastComponent);
                        componentList.add(component);
                        lastComponent.setRightComponent(component);
                        lastComponent = component;
@@ -103,8 +103,8 @@ public class Builder
                    }
                    else if (type.contains("station"))
                    {
-
-                       Station component = new Station(id, x, y, 0, 0);
+                       String stationName = (String) object1.get("station");
+                       Station component = new Station(id, x, y, stationName);
                        componentList.add(component);
                        component.setLeftComponent(lastComponent);
                        if(lastComponent != null) lastComponent.setRightComponent(component);

@@ -2,14 +2,12 @@ public class Signal extends Component
 {
   private Component leftComponent, rightComponent;
   private boolean locked;
-  private int trackX, trackY, guiX, guiY;
+  private int guiX, guiY;
 
-  public Signal(int id, int trackX, int trackY, int guiX, int guiY, Component leftComponent)
+  public Signal(int id, int trackX, int trackY,Component leftComponent)
   {
     this.trackX = trackX;
     this.trackY = trackY;
-    this.guiX = guiX;
-    this.guiY = guiY;
     this.leftComponent = leftComponent;
     locked = true;
   }

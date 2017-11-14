@@ -2,14 +2,12 @@ public class Track extends Component
 {
   private Component leftComponent, rightComponent;
   private boolean locked;
-  private int trackX, trackY, guiX, guiY, id;
+  private int guiX, guiY, id;
 
-  public Track(int id, int length, int trackX, int trackY, int guiX, int guiY, Component leftComponent)
+  public Track(int id, int length, int trackX, int trackY, Component leftComponent)
   {
     this.trackX = trackX;
     this.trackY = trackY;
-    this.guiX = guiX;
-    this.guiY = guiY;
     this.id = id;
     this.leftComponent = leftComponent;
     locked = false;

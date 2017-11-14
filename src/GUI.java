@@ -8,6 +8,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -19,6 +20,7 @@ public class GUI
 {
   private Stage stage;
   private List<Component> componentList;
+  private Color[] colors = {Color.RED, Color.BLUE, Color.GREEN, Color.PINK, Color.TURQUOISE, Color.PURPLE};
   public GUI(Stage stage, List<Component> componentList)
   {
     this.stage = stage;
@@ -42,7 +44,7 @@ public class GUI
     {
       @Override public void handle(ActionEvent e)
       {
-        drawBoard(componentList);
+        stage.setScene(drawBoard(componentList));
         buttonStart.setDisable(true);
       }
     });
@@ -50,15 +52,60 @@ public class GUI
 
   }
 
-  public void drawBoard(List<Component> componentList)
+  private Scene drawBoard(List<Component> componentList)
   {
+    int color = 0;
+    int length = 85;
+    int y = 150;
     Group root = new Group();
     Canvas canvas = new Canvas(1200, 800);
     GraphicsContext gc = canvas.getGraphicsContext2D();
-    root.getChildren().add(canvas);
-    for (Object c : componentList)
+
+    for (Component c : componentList)
     {
-      System.out.println(c.getClass());
+      System.out.println(c.getTrackX());
+      gc.setStroke(Color.rgb(0,0,0));
+      gc.setLineWidth(5);
+      if((c.getClass().toString()).contains("Station"))
+      {
+
+        gc.setFill(colors[color%colors.length]);
+        color++;
+        gc.fillRect(length*c.getTrackX() + 50, y*c.getTrackY()+200 - length, length ,length);
+
+      }
+      else if ((c.getClass().toString()).contains("TRSwitch"))
+      {
+        gc.strokeLine(length*c.getTrackX()+55, y*c.getTrackY() + 200, length +length*c.getTrackX()+44, y*c.getTrackY() + 200);
+        gc.strokeLine(length*c.getTrackX()+55, y*c.getTrackY() + 200, length/2 +length*c.getTrackX()+50, (y)*c.getTrackY() + 200 + y/2);
+      }
+      else if ((c.getClass().toString()).contains("BRSwitch"))
+      {
+        gc.strokeLine(length*c.getTrackX()+55, y*c.getTrackY() + 200, length +length*c.getTrackX()+44, y*c.getTrackY() + 200);
+        gc.strokeLine(length/2 + length*c.getTrackX()+50, y*c.getTrackY() - y/2 + 200, length +length*c.getTrackX()+44, (y)*c.getTrackY() + 200 );
+      }
+      else if ((c.getClass().toString()).contains("TLSwitch"))
+      {
+        gc.strokeLine(length*c.getTrackX()+55, y*c.getTrackY() + 200, length +length*c.getTrackX()+44, y*c.getTrackY() + 200);
+        gc.strokeLine(length/2 + length*c.getTrackX()+50, y*c.getTrackY() + y/2 + 200, length +length*c.getTrackX()+44, (y)*c.getTrackY() + 200 );
+      }
+      else if ((c.getClass().toString()).contains("BLSwitch"))
+      {
+        gc.strokeLine(length*c.getTrackX()+55, y*c.getTrackY() + 200, length +length*c.getTrackX()+44, y*c.getTrackY() + 200);
+        gc.strokeLine(length*c.getTrackX()+55, y*c.getTrackY() + 200,  length/2 +length*c.getTrackX()+50, (y)*c.getTrackY() + 200 - y/2);
+      }
+      else if ((c.getClass().toString()).contains("Signal"))
+      {
+        gc.setFill(Color.RED);
+        gc.fillOval(length/2 + length*c.getTrackX()+40, y*c.getTrackY() + 175 , 20, 20);
+        gc.strokeLine(length * c.getTrackX() + 55, y * c.getTrackY() + 200, length + length * c.getTrackX() + 44, y * c.getTrackY() + 200);
+      }
+
+      else gc.strokeLine(length*c.getTrackX()+55, y*c.getTrackY() + 200, length +length*c.getTrackX()+44, y*c.getTrackY() + 200);
+      System.out.println(c.getClass().toString());
     }
+    root.getChildren().add(canvas);
+    Scene trainScene = new Scene(root, 1200, 800);
+    return trainScene;
   }
 }

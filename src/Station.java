@@ -1,13 +1,12 @@
 public class Station extends Component
 {
   private Component track, leftComponent;
-  private int trackX, trackY, guiX, guiY;
-  public Station(int id, int trackX, int trackY, int guiX, int guiY)
+  private String stationName;
+  public Station(int id, int trackX, int trackY, String stationName)
   {
+    this.stationName = stationName;
     this.trackX = trackX;
     this.trackY = trackY;
-    this.guiX = guiX;
-    this.guiY= guiY;
   }
   public void setLeftComponent(Component component)
   {
