@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Track extends Component
 {
   private Component leftComponent, rightComponent;
@@ -16,15 +18,26 @@ public class Track extends Component
   {
     this.rightComponent= component;
   }
-  @Override
-  public void acceptMessage(String message) {
-
-  }
 
   @Override
-  public void lock()
+  public synchronized void acceptMessage(String message, ArrayList<Component> path, boolean sending)
   {
-    this.locked = true;
+    if(sending) path.add(this);
+    if(message.substring(0, 1).compareTo(message.substring(1)) < 0)
+    {
+      leftComponent.notify();
+      leftComponent.acceptMessage(message, path, sending);
+    }
+    else
+    {
+      rightComponent.notify();
+      rightComponent.acceptMessage(message, path, sending);
+    }
+    try {
+      this.wait();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
@@ -37,7 +50,10 @@ public class Track extends Component
         try
         {
           this.wait();
-        } catch (Exception InterruptedException) {}
+        } catch (InterruptedException e)
+        {
+          e.printStackTrace();
+        }
       }
     }
   }
