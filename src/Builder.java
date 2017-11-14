@@ -5,9 +5,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,13 +27,20 @@ public class Builder
 
     private void buildTracksFromJSON()
     {
-
         JSONParser parser = new JSONParser();
        try
        {
-           JSONObject a = (JSONObject) parser.parse(new FileReader("src/resources/components.json"));
+           BufferedReader br =new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("resources/components.json")));
+           StringBuilder sb = new StringBuilder();
+           String line;
+           while ((line = br.readLine()) != null) {
+               sb.append(line);
+           }
+           System.out.println(sb);
+           JSONObject a = (JSONObject) parser.parse(sb.toString());
 
-               JSONArray components = (JSONArray) a.get("components");
+
+           JSONArray components = (JSONArray) a.get("components");
 
                for (Object c : components)
                {

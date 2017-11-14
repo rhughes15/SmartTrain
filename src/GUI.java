@@ -96,7 +96,9 @@ public class GUI
       }
       else if ((c.getClass().toString()).contains("Signal"))
       {
-        gc.setFill(Color.RED);
+        Signal signal = (Signal) c;
+        if(signal.isGreen())gc.setFill(Color.GREEN);
+        else gc.setFill(Color.RED);
         gc.fillOval(length/2 + length*c.getTrackX()+40, y*c.getTrackY() + 175 , 20, 20);
         gc.strokeLine(length * c.getTrackX() + 55, y * c.getTrackY() + 200, length + length * c.getTrackX() + 44, y * c.getTrackY() + 200);
       }

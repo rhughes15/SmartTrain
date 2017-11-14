@@ -5,7 +5,7 @@ public class Signal extends Component
   private Component leftComponent, rightComponent;
   private boolean locked, red;
   private int guiX, guiY;
-
+  private boolean green = true;
   public Signal(int id, int trackX, int trackY,Component leftComponent)
   {
     this.trackX = trackX;
@@ -60,5 +60,10 @@ public class Signal extends Component
         e.printStackTrace();
       }
     }
+  }
+
+  public boolean isGreen()
+  {
+    return green;
   }
 }
