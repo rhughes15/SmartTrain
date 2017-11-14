@@ -3,7 +3,7 @@ public class Signal extends Component
   private Component leftComponent, rightComponent;
   private boolean locked;
   private int guiX, guiY;
-
+  private boolean green = true;
   public Signal(int id, int trackX, int trackY,Component leftComponent)
   {
     this.trackX = trackX;
@@ -37,5 +37,10 @@ public class Signal extends Component
         } catch (Exception InterruptedException) {}
       }
     }
+  }
+
+  public boolean isGreen()
+  {
+    return green;
   }
 }
