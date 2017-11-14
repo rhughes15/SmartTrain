@@ -23,7 +23,22 @@ public class Track extends Component
   public synchronized void acceptMessage(String message, ArrayList<Component> path, boolean sending)
   {
     if(sending) path.add(this);
-    if(message.substring(0, 1).compareTo(message.substring(1)) < 0)
+    else locked = true;
+
+    if(message.equalsIgnoreCase("red") || message.equalsIgnoreCase("green"))
+    {
+      if(sending)
+      {
+        rightComponent.notify();
+        rightComponent.acceptMessage(message, path, sending);
+      }
+      else
+      {
+        leftComponent.notify();
+        leftComponent.acceptMessage(message, path, sending);
+      }
+    }
+    else if(message.substring(0, 1).compareTo(message.substring(1)) < 0)
     {
       leftComponent.notify();
       leftComponent.acceptMessage(message, path, sending);
@@ -33,6 +48,7 @@ public class Track extends Component
       rightComponent.notify();
       rightComponent.acceptMessage(message, path, sending);
     }
+
     try {
       this.wait();
     } catch (InterruptedException e) {

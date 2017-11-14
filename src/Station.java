@@ -24,7 +24,7 @@ public class Station extends Component
     if(sending)
     {
       track.notify();
-      track.acceptMessage(message, path, false);
+      track.acceptMessage(message.substring(1) + message.substring(0, 1), path, false);
     }
     else
     {
@@ -33,7 +33,13 @@ public class Station extends Component
         train.notify();
         train.travel(path);
       }
-    } // LEFT OFF HERE: implementing message passing
+    }
+
+    try {
+      this.wait();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
