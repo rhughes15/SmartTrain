@@ -1,3 +1,5 @@
+import javafx.scene.canvas.GraphicsContext;
+
 import java.util.ArrayList;
 
 public class Track extends Component
@@ -5,6 +7,8 @@ public class Track extends Component
   private Component leftComponent, rightComponent;
   private boolean locked;
   private int guiX, guiY, id;
+  private int length = Reference.length;
+  private int y = Reference.y;
 
   public Track(int id, int length, int trackX, int trackY, Component leftComponent)
   {
@@ -17,6 +21,12 @@ public class Track extends Component
   public void setRightComponent(Component component)
   {
     this.rightComponent= component;
+  }
+
+  @Override
+  public void display(GraphicsContext gc)
+  {
+    gc.strokeLine(length*this.getTrackX()+55, y*this.getTrackY() + 200, length +length*this.getTrackX()+44, y*this.getTrackY() + 200);
   }
 
   @Override

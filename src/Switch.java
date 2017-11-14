@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public abstract class Switch extends Component
 {
+
   protected Component leftComponent, partnerComponent;
   private int guiX, guiY, partnerId, id;
   private boolean locked;
