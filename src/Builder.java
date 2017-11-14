@@ -21,6 +21,7 @@ public class Builder
     {
         buildTracksFromJSON();
     }
+
     public List<Component> getComponentList()
     {
         return componentList;
@@ -104,7 +105,7 @@ public class Builder
                    else if (type.contains("station"))
                    {
                        String stationName = (String) object1.get("station");
-                       Station component = new Station(id, x, y, stationName);
+                       Station component = new Station(x, y, stationName);
                        componentList.add(component);
                        component.setLeftComponent(lastComponent);
                        if(lastComponent != null) lastComponent.setRightComponent(component);

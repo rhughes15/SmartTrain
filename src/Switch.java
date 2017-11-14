@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public abstract class Switch extends Component
 {
   private Component leftComponent, partnerComponent;
@@ -17,15 +19,9 @@ public abstract class Switch extends Component
     partnerComponent = component;
   }
   @Override
-  public void acceptMessage(String message)
+  public void acceptMessage(String message, ArrayList<Component> path, boolean sending)
   {
 
-  }
-
-  @Override
-  public synchronized void lock()
-  {
-    this.lock();
   }
 
   @Override
@@ -38,7 +34,10 @@ public abstract class Switch extends Component
         try
         {
           this.wait();
-        } catch (Exception InterruptedException) {}
+        } catch (InterruptedException e)
+        {
+          e.printStackTrace();
+        }
       }
     }
   }

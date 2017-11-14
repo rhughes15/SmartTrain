@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Signal extends Component
 {
   private Component leftComponent, rightComponent;
@@ -13,15 +15,9 @@ public class Signal extends Component
   }
 
   @Override
-  public void acceptMessage(String message)
+  public void acceptMessage(String message, ArrayList<Component> path, boolean sending)
   {
 
-  }
-
-  @Override
-  public void lock()
-  {
-    this.lock();
   }
 
   @Override
@@ -29,12 +25,13 @@ public class Signal extends Component
   {
     synchronized (this)
     {
-      if(locked == false)
-      {
-        try
-        {
+      if(locked == false) {
+        try {
           this.wait();
-        } catch (Exception InterruptedException) {}
+        } catch (InterruptedException e)
+        {
+          e.printStackTrace();
+        }
       }
     }
   }
