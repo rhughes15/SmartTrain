@@ -87,7 +87,7 @@ public abstract class Switch extends Component
   private void closeSignals()
   {
     leftComponent.notify();
-    leftComponent.acceptMessage("RED", null, true);
+    leftComponent.acceptMessage("RED", null, false);
     rightComponent.notify();
     rightComponent.acceptMessage("RED", null, true);
   }
@@ -95,7 +95,7 @@ public abstract class Switch extends Component
   private void openSignals()
   {
     leftComponent.notify();
-    leftComponent.acceptMessage("GREEN", null, true);
+    leftComponent.acceptMessage("GREEN", null, false);
     rightComponent.notify();
     rightComponent.acceptMessage("GREEN", null, true);
   }
