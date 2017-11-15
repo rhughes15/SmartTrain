@@ -36,7 +36,7 @@ public class Signal extends Component
       else
       {
         locked = true;
-        red = false;
+        green = true;
       }
 
       if (message.substring(0, 1).compareTo(message.substring(1)) < 0)  // message going right to left
@@ -52,12 +52,12 @@ public class Signal extends Component
     }
     else if(message.equalsIgnoreCase("red") && !locked)
     {
-      red = true;
+      green = false;
       locked = true;
     }
     else if(message.equalsIgnoreCase("green") && !locked)
     {
-      red = false;
+      green = true;
       locked = true;
     }
   }
