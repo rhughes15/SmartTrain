@@ -6,6 +6,7 @@ public class Signal extends Component
   private boolean locked, red;
   private int guiX, guiY;
   private boolean green = true;
+
   public Signal(int id, int trackX, int trackY,Component leftComponent)
   {
     this.trackX = trackX;

@@ -54,11 +54,9 @@ public class GUI
 
   private Scene drawBoard(List<Component> componentList)
   {
-    int color = 0;
-    int length = 85;
-    int y = 150;
     Group root = new Group();
     Canvas canvas = new Canvas(1200, 800);
+    canvas.setOnMouseClicked(new CanvasListener(componentList));
     GraphicsContext gc = canvas.getGraphicsContext2D();
 
     for (Component c : componentList)
@@ -68,7 +66,6 @@ public class GUI
       gc.setLineWidth(5);
       if((c.getClass().toString()).contains("Station"))
       {
-
         gc.setFill(colors[color%colors.length]);
         color++;
         gc.fillRect(length*c.getTrackX() + 50, y*c.getTrackY()+200 - length, length ,length);
@@ -76,8 +73,7 @@ public class GUI
       }
       else if ((c.getClass().toString()).contains("TRSwitch"))
       {
-        gc.strokeLine(length*c.getTrackX()+55, y*c.getTrackY() + 200, length +length*c.getTrackX()+44, y*c.getTrackY() + 200);
-        gc.strokeLine(length*c.getTrackX()+55, y*c.getTrackY() + 200, length/2 +length*c.getTrackX()+50, (y)*c.getTrackY() + 200 + y/2);
+
       }
       else if ((c.getClass().toString()).contains("BRSwitch"))
       {

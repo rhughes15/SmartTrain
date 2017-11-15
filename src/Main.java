@@ -14,7 +14,6 @@ import static javafx.geometry.Pos.CENTER;
 
 public class Main extends Application
 {
-
   @Override
   public void start(Stage primaryStage) throws Exception
   {

@@ -1,3 +1,5 @@
+import javafx.scene.canvas.GraphicsContext;
+
 public class TRSwitch extends Switch
 {
   public TRSwitch(int id, int trackX, int trackY, Component leftComponent)
