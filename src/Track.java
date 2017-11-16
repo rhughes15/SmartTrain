@@ -6,7 +6,6 @@ public class Track extends Component
 {
   private Component leftComponent, rightComponent;
   private boolean locked;
-  private int guiX, guiY, id;
   private int length = Reference.length;
   private int y = Reference.y;
 
@@ -14,7 +13,6 @@ public class Track extends Component
   {
     this.trackX = trackX;
     this.trackY = trackY;
-    this.id = id;
     this.leftComponent = leftComponent;
     locked = false;
   }
@@ -32,24 +30,29 @@ public class Track extends Component
   @Override
   public synchronized void acceptMessage(String message, ArrayList<Component> path, boolean sending)
   {
-    if(sending) path.add(this);
-    else locked = true;
-
     if(message.equalsIgnoreCase("red") || message.equalsIgnoreCase("green"))
     {
       if(sending)
       {
-        rightComponent.notify();
+        synchronized (rightComponent)
+        {
+          rightComponent.notify();
+        }
         rightComponent.acceptMessage(message, path, sending);
       }
       else
       {
-        leftComponent.notify();
+        synchronized (leftComponent)
+        {
+          leftComponent.notify();
+        }
         leftComponent.acceptMessage(message, path, sending);
       }
     }
     else if(message.substring(0, 1).compareTo(message.substring(1)) > 0)
     {
+      if(sending) path.add(this);
+      else locked = true;
       synchronized (leftComponent)
       {
         leftComponent.notify();
@@ -58,6 +61,8 @@ public class Track extends Component
     }
     else
     {
+      if(sending) path.add(this);
+      else locked = true;
       synchronized (rightComponent)
       {
         rightComponent.notify();

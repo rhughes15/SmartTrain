@@ -92,7 +92,7 @@
 			"x": 12,
 			"y": 0,
 			"length": 1,
-			"station": "B"
+			"station": "X"
 		},
 		{
 			"id": 13,
@@ -100,7 +100,7 @@
 			"x": 0,
 			"y": 1,
 			"length": 1,
-			"station": "C"
+			"station": "B"
 		},
 		{
 			"id": 14,
@@ -185,7 +185,7 @@
 			"x": 12,
 			"y": 1,
 			"length": 1,
-			"station": "D"
+			"station": "Y"
 		},
 		{
 			"id": 26,
@@ -193,7 +193,7 @@
 			"x": 0,
 			"y": 2,
 			"length": 1,
-			"station": "E"
+			"station": "C"
 		},
 		{
 			"id": 27,
@@ -278,7 +278,7 @@
 			"x": 12,
 			"y": 2,
 			"length": 1,
-			"station": "F"
+			"station": "Z"
 		}
 	]
 }

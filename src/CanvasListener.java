@@ -22,15 +22,16 @@ public class CanvasListener implements EventHandler
     {
       if(isCloseEnough(c, event))
       {
-        if(firstStation != null)
+        if(firstStation == null)
+        {
+          firstStation = (Station)c;
+        }
+        else
         {
           firstStation.setTrain(new Train(firstStation));
           firstStation.getTrack().acceptMessage(firstStation.getStationName() +
             ((Station)c).getStationName(), new ArrayList<>(), true);
-        }
-        else
-        {
-          firstStation = (Station)c;
+          firstStation = null;
         }
       }
     }

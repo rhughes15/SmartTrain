@@ -14,10 +14,20 @@ public class Train implements Runnable
   public Train(Component component)
   {
     currentComponent = component;
+    //x = component.getDestinationX();
+    //y = component.getDestintionY();
+    image = new Image("resources/Train.png");
   }
 
   public synchronized void travel(ArrayList<Component> path)
   {
+    for(Component c : path)
+    {
+      if (c instanceof Track) System.out.print("T ");
+      else if (c instanceof Signal) System.out.print("Si ");
+      else if (c instanceof Switch) System.out.print("Sw ");
+      else if (c instanceof Station) System.out.println("Station " + ((Station) c).getStationName());
+    }
     for(int i = 0; i < path.size(); i++)
     {
       currentComponent.acceptMessage("LTRAIN", null, true);
@@ -32,7 +42,7 @@ public class Train implements Runnable
 
   }
 
-  public void display(GraphicsContext gc)
+  public synchronized void display(GraphicsContext gc)
   {
     gc.setFill(Color.BLACK);
     gc.fillRect(x, y, 100, 50);
