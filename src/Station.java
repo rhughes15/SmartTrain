@@ -36,7 +36,7 @@ public class Station extends Component
   {
     if((rightComponent.getClass().toString()).contains("station")) track = leftComponent;
     else track = rightComponent;
-    
+
     if(sending)
     {
       track.notify();
