@@ -1,4 +1,7 @@
+
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
@@ -25,6 +28,7 @@ public class Train implements Runnable
     {
       currentComponent.acceptMessage("LTRAIN", null, true);
       currentComponent = path.get(i);
+      currentComponent.acceptMessage("ATRAIN", null, true);
       try {
         this.wait(1000);
       } catch (InterruptedException e) {
@@ -32,6 +36,12 @@ public class Train implements Runnable
       }
     }
 
+  }
+
+  public void display(GraphicsContext gc)
+  {
+    gc.setFill(Color.BLACK);
+    gc.fillRect(x, y, 100, 50);
   }
 
   @Override

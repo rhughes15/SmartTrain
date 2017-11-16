@@ -48,7 +48,7 @@ public class Track extends Component
         leftComponent.acceptMessage(message, path, sending);
       }
     }
-    else if(message.substring(0, 1).compareTo(message.substring(1)) < 0)
+    else if(message.substring(0, 1).compareTo(message.substring(1)) > 0)
     {
       leftComponent.notify();
       leftComponent.acceptMessage(message, path, sending);
