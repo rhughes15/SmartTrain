@@ -12,12 +12,14 @@ import java.util.List;
 
 public class Builder
 {
-    Switch tlSwitch, trSwitch, blSwitch, brSwitch;
+    ArrayList<Switch> tlSwitches, trSwitches;
     Component lastComponent;
     List<Component> componentList = new ArrayList<Component>();
     public Builder()
     {
         buildTracksFromJSON();
+        tlSwitches = new ArrayList<>();
+        trSwitches = new ArrayList<>();
     }
 
     public List<Component> getComponentList()
@@ -33,6 +35,11 @@ public class Builder
            BufferedReader br =new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("resources/components.json")));
            StringBuilder sb = new StringBuilder();
            String line;
+           if(trSwitches == null || tlSwitches == null)
+           {
+             tlSwitches = new ArrayList<>();
+             trSwitches = new ArrayList<>();
+           }
            while ((line = br.readLine()) != null) {
                sb.append(line);
            }
@@ -43,7 +50,6 @@ public class Builder
 
                for (Object c : components)
                {
-                   int counter = 0;
                    JSONObject object1 = (JSONObject) c;
                    int id = ((Long)(object1.get("id"))).intValue();
                    String type = (String) object1.get("type");
@@ -55,27 +61,27 @@ public class Builder
                        if(type.contains("bl"))
                        {
                            BLSwitch component = new BLSwitch(id, x,y, lastComponent);
-                           blSwitch = component;
-                           component.setPartner(tlSwitch);
-                           tlSwitch.setPartner(component);
+                           Switch partner = trSwitches.remove(0);
+                           component.setPartner(partner);
+                           partner.setPartner(component);
                            componentList.add(component);
                            lastComponent.setRightComponent(component);
                            lastComponent = component;
                        }
                        else if(type.contains("br"))
                        {
-                           BRSwitch component = new BRSwitch(id, x,y, lastComponent);
-                           brSwitch = component;
-                           component.setPartner(trSwitch);
-                           trSwitch.setPartner(component);
-                           componentList.add(component);
-                           lastComponent.setRightComponent(component);
-                           lastComponent = component;
+                         BRSwitch component = new BRSwitch(id, x,y, lastComponent);
+                         Switch partner = tlSwitches.remove(0);
+                         component.setPartner(partner);
+                         partner.setPartner(component);
+                         componentList.add(component);
+                         lastComponent.setRightComponent(component);
+                         lastComponent = component;
                        }
                        else if(type.contains("tl"))
                        {
                            TLSwitch component = new TLSwitch(id, x,y, lastComponent);
-                           tlSwitch = component;
+                           tlSwitches.add(component);
                            componentList.add(component);
                            lastComponent.setRightComponent(component);
                            lastComponent = component;
@@ -83,7 +89,7 @@ public class Builder
                        else
                        {
                            TRSwitch component = new TRSwitch(id, x,y, lastComponent);
-                           trSwitch = component;
+                           trSwitches.add(component);
                            componentList.add(component);
                            lastComponent.setRightComponent(component);
                            lastComponent = component;
