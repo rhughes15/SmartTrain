@@ -15,6 +15,12 @@ public class Train implements Runnable
 
   public synchronized void travel(ArrayList<Component> path)
   {
+    for(Component c : path)
+    {
+      if (c instanceof Track) System.out.println("T");
+      else if (c instanceof Switch) System.out.println("Sw");
+      else if (c instanceof Signal) System.out.println("Si");
+    }
     for(int i = 0; i < path.size(); i++)
     {
       currentComponent.acceptMessage("LTRAIN", null, true);

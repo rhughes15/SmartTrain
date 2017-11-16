@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public abstract class Switch extends Component
 {
+
   protected Component leftComponent, partnerComponent;
-  private int guiX, guiY, partnerId, id;
   private boolean locked;
   protected boolean[] canGoFromLeft, canGoFromRight, canGoFromSwitch;
 
@@ -14,13 +14,13 @@ public abstract class Switch extends Component
     this.leftComponent = leftComponent;
     locked = false;
   }
-  public void setPartner(Component component)
+  public synchronized void setPartner(Component component)
   {
     partnerComponent = component;
   }
 
   @Override
-  public void acceptMessage(String message, ArrayList<Component> path, boolean sending)
+  public synchronized void acceptMessage(String message, ArrayList<Component> path, boolean sending)
   {
     if(sending)
     {

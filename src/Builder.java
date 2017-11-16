@@ -101,7 +101,7 @@ public class Builder
                    else if (type.contains("signal"))
                    {
 
-                       Signal component = new Signal(id, x,y,lastComponent);
+                       Signal component = new Signal(x,y,lastComponent);
                        componentList.add(component);
                        lastComponent.setRightComponent(component);
                        lastComponent = component;

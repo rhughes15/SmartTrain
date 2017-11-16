@@ -1,17 +1,30 @@
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+
 import java.util.ArrayList;
 
 public class Signal extends Component
 {
   private Component leftComponent, rightComponent;
+  private int length = Reference.length;
+  private int y = Reference.y;
   private boolean locked, red;
-  private int guiX, guiY;
   private boolean green = true;
 
-  public Signal(int id, int trackX, int trackY,Component leftComponent)
+  public Signal(int trackX, int trackY,Component leftComponent)
   {
     this.trackX = trackX;
     this.trackY = trackY;
     this.leftComponent = leftComponent;
+  }
+
+  @Override
+  public void display(GraphicsContext gc)
+  {
+    if(this.isGreen())gc.setFill(Color.GREEN);
+    else gc.setFill(Color.RED);
+    gc.fillOval(length/2 + length*this.getTrackX()+40, y*this.getTrackY() + 175 , 20, 20);
+    gc.strokeLine(length * this.getTrackX() + 55, y * this.getTrackY() + 200, length + length * this.getTrackX() + 44, y * this.getTrackY() + 200);
   }
 
   @Override
