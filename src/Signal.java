@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Signal extends Component
 {
-  private Component leftComponent, rightComponent;
+  private Component leftComponent;
   private int length = Reference.length;
   private int y = Reference.y;
   private boolean locked, red;
@@ -39,14 +39,20 @@ public class Signal extends Component
         green = true;
       }
 
-      if (message.substring(0, 1).compareTo(message.substring(1)) < 0)  // message going right to left
+      if (message.substring(0, 1).compareTo(message.substring(1)) > 0)  // message going right to left
       {
-        leftComponent.notify();
+        synchronized(leftComponent)
+        {
+          leftComponent.notify();
+        }
         leftComponent.acceptMessage(message, path, sending);
       }
       else // message going left to right
       {
-        rightComponent.notify();
+        synchronized(rightComponent)
+        {
+          rightComponent.notify();
+        }
         rightComponent.acceptMessage(message, path, sending);
       }
     }

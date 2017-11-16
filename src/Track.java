@@ -50,12 +50,18 @@ public class Track extends Component
     }
     else if(message.substring(0, 1).compareTo(message.substring(1)) > 0)
     {
-      leftComponent.notify();
+      synchronized (leftComponent)
+      {
+        leftComponent.notify();
+      }
       leftComponent.acceptMessage(message, path, sending);
     }
     else
     {
-      rightComponent.notify();
+      synchronized (rightComponent)
+      {
+        rightComponent.notify();
+      }
       rightComponent.acceptMessage(message, path, sending);
     }
 

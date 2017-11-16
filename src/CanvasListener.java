@@ -20,12 +20,6 @@ public class CanvasListener implements EventHandler
   {
     for(Component c : components)
     {
-      if (c instanceof Track) System.out.println("T, guiX: " + c.getGuiX() + " guiY: " + c.getGuiY());
-      else if (c instanceof Switch) System.out.println("Sw, guiX: " + c.getGuiX() + " guiY: " + c.getGuiY());
-       System.out.println("Si, guiX: " + c.getGuiX() + " guiY: " + c.getGuiY());
-    }
-    for(Component c : components)
-    {
       if(isCloseEnough(c, event))
       {
         if(firstStation != null)
@@ -47,10 +41,12 @@ public class CanvasListener implements EventHandler
     if((comp instanceof Station) && (event instanceof MouseEvent))
     {
       MouseEvent me = (MouseEvent)event;
-      if(me.getSceneX() - comp.getGuiX() < Reference.STATION_WIDTH &&
-         me.getSceneY() - comp.getGuiY() < Reference.STATION_HEIGHT)
+      double difx = me.getSceneX() - comp.getGuiX();
+      double dify = me.getSceneY() - comp.getGuiY();
+      if(difx < Reference.length && difx > 0 &&
+         dify < Reference.length && dify > 0)
       {
-        System.out.println("Station click");
+        System.out.println("Station " + ((Station)comp).getStationName() + " clicked");
         return true;
       }
     }

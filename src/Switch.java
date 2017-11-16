@@ -22,37 +22,51 @@ public abstract class Switch extends Component
   @Override
   public synchronized void acceptMessage(String message, ArrayList<Component> path, boolean sending)
   {
-    if(sending)
+    if(sending && !locked)
     {
       path.add(this);
-      if (message.substring(0, 1).compareTo(message.substring(1)) < 0) // message going right to left
+      if (message.substring(0, 1).compareTo(message.substring(1)) > 0) // message going right to left
       {
         if (canGoFromRight[0])
         {
-          leftComponent.notify();
+          synchronized (leftComponent)
+          {
+            leftComponent.notify();
+          }
           leftComponent.acceptMessage(message, path, sending);
         }
         if (canGoFromRight[2])
         {
-          partnerComponent.notify();
+          synchronized (partnerComponent)
+          {
+            partnerComponent.notify();
+          }
           partnerComponent.acceptMessage(message, path, sending);
+          System.out.println("PARTNER MESSAGE");
         }
       }
-      else  // message going from left to right
+      else if (!locked)  // message going from left to right
       {
         if(canGoFromLeft[1])
         {
-          rightComponent.notify();
+          synchronized (rightComponent)
+          {
+            rightComponent.notify();
+          }
           rightComponent.acceptMessage(message, path, sending);
         }
         if(canGoFromLeft[2])
         {
-          partnerComponent.notify();
+          synchronized (partnerComponent)
+          {
+            partnerComponent.notify();
+          }
           partnerComponent.acceptMessage(message, path, sending);
+          System.out.println("PARTNER MESSAGE");
         }
       }
     }
-    else
+    else if(!locked)
     {
       locked = true;
       closeSignals();
