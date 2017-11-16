@@ -21,7 +21,6 @@ public class Station extends Component
   {
     gc.setFill(Reference.COLORS[stationName.charAt(0)% Reference.COLORS.length]);
     gc.fillRect(Reference.length*trackX + 50, Reference.y*trackY+200 - Reference.length, Reference.length ,Reference.length);
-
   }
 
   public void setLeftComponent(Component component)
