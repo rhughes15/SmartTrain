@@ -3,11 +3,18 @@ import java.util.ArrayList;
 public abstract class Switch extends Component
 {
 
-  protected Component leftComponent, partnerComponent;
+  protected Component leftComponent;
+
+  public Component getPartnerComponent()
+  {
+    return partnerComponent;
+  }
+
+  protected Component partnerComponent;
   private boolean locked;
   protected boolean[] canGoFromLeft, canGoFromRight, canGoFromSwitch;
 
-  public Switch(int id, int trackX, int trackY, Component leftComponent)
+  public Switch(int trackX, int trackY, Component leftComponent)
   {
     this.trackX = trackX;
     this.trackY = trackY;
@@ -22,57 +29,48 @@ public abstract class Switch extends Component
   @Override
   public synchronized void acceptMessage(String message, ArrayList<Component> path, boolean sending)
   {
-    if(sending && !locked)
+    if (message.substring(0, 1).compareTo(message.substring(1)) > 0) // message going right to left
     {
-      path.add(this);
-      if (message.substring(0, 1).compareTo(message.substring(1)) > 0) // message going right to left
+      if (canGoFromRight[0])
       {
-        if (canGoFromRight[0])
+        synchronized (leftComponent)
         {
-          synchronized (leftComponent)
-          {
-            leftComponent.notify();
-          }
-          leftComponent.acceptMessage(message, path, sending);
+          leftComponent.notify();
         }
-        if (canGoFromRight[2])
-        {
-          synchronized (partnerComponent)
-          {
-            partnerComponent.notify();
-          }
-          partnerComponent.acceptMessage(message, path, sending);
-          System.out.println("PARTNER MESSAGE");
-        }
+        leftComponent.acceptMessage(message, path, sending);
       }
-      else if (!locked)  // message going from left to right
+      if (canGoFromRight[2])
       {
-        if(canGoFromLeft[1])
+        synchronized (partnerComponent)
         {
-          synchronized (rightComponent)
-          {
-            rightComponent.notify();
-          }
-          rightComponent.acceptMessage(message, path, sending);
+          partnerComponent.notify();
         }
-        if(canGoFromLeft[2])
-        {
-          synchronized (partnerComponent)
-          {
-            partnerComponent.notify();
-          }
-          partnerComponent.acceptMessage(message, path, sending);
-          System.out.println("PARTNER MESSAGE");
-        }
+        partnerComponent.acceptMessage(message, path, sending);
+        System.out.println("PARTNER MESSAGE");
       }
     }
-    else if(!locked)
+    else
     {
-      locked = true;
-      closeSignals();
-
+      if(canGoFromLeft[1])
+      {
+        synchronized (rightComponent)
+        {
+          rightComponent.notify();
+        }
+        rightComponent.acceptMessage(message, path, sending);
+      }
+      if(canGoFromLeft[2])
+      {
+        synchronized (partnerComponent)
+        {
+          partnerComponent.notify();
+        }
+        partnerComponent.acceptMessage(message, path, sending);
+        System.out.println("PARTNER MESSAGE");
+      }
     }
-
+    if(!sending) closeSignals();
+    
     try {
       this.wait();
     } catch (InterruptedException e) {
@@ -100,17 +98,29 @@ public abstract class Switch extends Component
 
   private void closeSignals()
   {
-    leftComponent.notify();
+    synchronized (leftComponent)
+    {
+      leftComponent.notify();
+    }
     leftComponent.acceptMessage("RED", null, false);
-    rightComponent.notify();
+    synchronized(rightComponent)
+    {
+      rightComponent.notify();
+    }
     rightComponent.acceptMessage("RED", null, true);
   }
 
   private void openSignals()
   {
-    leftComponent.notify();
+    synchronized (leftComponent)
+    {
+      leftComponent.notify();
+    }
     leftComponent.acceptMessage("GREEN", null, false);
-    rightComponent.notify();
+    synchronized (leftComponent)
+    {
+      leftComponent.notify();
+    }
     rightComponent.acceptMessage("GREEN", null, true);
   }
 }

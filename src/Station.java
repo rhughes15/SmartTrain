@@ -29,17 +29,19 @@ public class Station extends Component
   }
   public void setRightComponent(Component track)
   {
-    this.track = track;
     rightComponent = track;
+    if(rightComponent.getClass().toString().contains("Station")) this.track = leftComponent;
+    else this.track = rightComponent;
   }
+
 
   @Override
   public synchronized void acceptMessage(String message, ArrayList<Component> path, boolean sending)
   {
-    path.add(this);
+    System.out.println(message);
     if(sending && stationName.equalsIgnoreCase(message.substring(1)))
     {
-      System.out.println(message);
+      path.add(this);
       for(Component c : path)
       {
         if (c instanceof Track) System.out.print("T ");
@@ -55,7 +57,6 @@ public class Station extends Component
     }
     if(!sending && stationName.equalsIgnoreCase(message.substring(1)))
     {
-      System.out.println(message);
       for(Component c : path)
       {
         if (c instanceof Track) System.out.print("T ");
