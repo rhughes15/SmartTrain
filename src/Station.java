@@ -30,8 +30,8 @@ public class Station extends Component
   public void setRightComponent(Component track)
   {
     rightComponent = track;
-    if(rightComponent.getClass().toString().contains("Station")) this.track = leftComponent;
-    else this.track = rightComponent;
+    if(track instanceof Track) this.track = rightComponent;
+    else this.track = leftComponent;
   }
 
 
@@ -95,5 +95,9 @@ public class Station extends Component
 
   public void setTrain(Train train) {this.train = train;}
   public synchronized String getStationName() {return stationName;}
-  public synchronized Component getTrack() { return track; }
+  public synchronized Component getTrack()
+  {
+    if(rightComponent == null) track = leftComponent;
+    return track;
+  }
 }

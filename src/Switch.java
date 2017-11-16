@@ -41,12 +41,12 @@ public abstract class Switch extends Component
       }
       if (canGoFromRight[2])
       {
+        System.out.println("PARTNER MESSAGE");
         synchronized (partnerComponent)
         {
           partnerComponent.notify();
         }
         partnerComponent.acceptMessage(message, path, sending);
-        System.out.println("PARTNER MESSAGE");
       }
     }
     else
@@ -61,16 +61,16 @@ public abstract class Switch extends Component
       }
       if(canGoFromLeft[2])
       {
+        System.out.println("PARTNER MESSAGE");
         synchronized (partnerComponent)
         {
           partnerComponent.notify();
         }
         partnerComponent.acceptMessage(message, path, sending);
-        System.out.println("PARTNER MESSAGE");
       }
     }
     if(!sending) closeSignals();
-    
+
     try {
       this.wait();
     } catch (InterruptedException e) {
