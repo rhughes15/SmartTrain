@@ -21,6 +21,7 @@ public class Train implements Runnable
 
   public synchronized void travel(ArrayList<Component> path)
   {
+    System.out.println("Train path: ");
     for(Component c : path)
     {
       if (c instanceof Track) System.out.print("T ");

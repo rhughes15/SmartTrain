@@ -4,9 +4,9 @@ public class BLSwitch extends Switch
 {
   private int length = Reference.length;
   private int y = Reference.y;
-  public BLSwitch(int id, int trackX, int trackY, Component leftNeighbor)
+  public BLSwitch(int trackX, int trackY, Component leftNeighbor)
   {
-    super(id, trackX, trackY, leftNeighbor);
+    super(trackX, trackY, leftNeighbor);
     canGoFromLeft = new boolean[]{false, true, false};
     canGoFromRight = new boolean[]{true, false, true};
     canGoFromSwitch = new boolean[]{false, true, false};

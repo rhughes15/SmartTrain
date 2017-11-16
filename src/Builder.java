@@ -60,7 +60,7 @@ public class Builder
                    {
                        if(type.contains("bl"))
                        {
-                           BLSwitch component = new BLSwitch(id, x,y, lastComponent);
+                           BLSwitch component = new BLSwitch(x,y, lastComponent);
                            Switch partner = trSwitches.remove(0);
                            component.setPartner(partner);
                            partner.setPartner(component);
@@ -70,7 +70,7 @@ public class Builder
                        }
                        else if(type.contains("br"))
                        {
-                         BRSwitch component = new BRSwitch(id, x,y, lastComponent);
+                         BRSwitch component = new BRSwitch(x,y, lastComponent);
                          Switch partner = tlSwitches.remove(0);
                          component.setPartner(partner);
                          partner.setPartner(component);
@@ -80,7 +80,7 @@ public class Builder
                        }
                        else if(type.contains("tl"))
                        {
-                           TLSwitch component = new TLSwitch(id, x,y, lastComponent);
+                           TLSwitch component = new TLSwitch(x,y, lastComponent);
                            tlSwitches.add(component);
                            componentList.add(component);
                            lastComponent.setRightComponent(component);
@@ -88,7 +88,7 @@ public class Builder
                        }
                        else
                        {
-                           TRSwitch component = new TRSwitch(id, x,y, lastComponent);
+                           TRSwitch component = new TRSwitch(x,y, lastComponent);
                            trSwitches.add(component);
                            componentList.add(component);
                            lastComponent.setRightComponent(component);

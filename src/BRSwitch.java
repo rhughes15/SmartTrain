@@ -4,9 +4,9 @@ public class BRSwitch extends Switch
 {
   private int length = Reference.length;
   private int y = Reference.y;
-  public BRSwitch(int id, int trackX, int trackY, Component leftComponent)
+  public BRSwitch(int trackX, int trackY, Component leftComponent)
   {
-    super(id, trackX, trackY, leftComponent);
+    super(trackX, trackY, leftComponent);
     canGoFromLeft = new boolean[]{false, true, true};
     canGoFromRight = new boolean[]{true, false, false};
     canGoFromSwitch = new boolean[]{true, false, false};

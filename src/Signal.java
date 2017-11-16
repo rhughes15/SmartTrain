@@ -82,7 +82,7 @@ public class Signal extends Component
     }
   }
 
-  public boolean isGreen()
+  public synchronized boolean isGreen()
   {
     return green;
   }
