@@ -9,7 +9,7 @@ public class Track extends Component
   private int length = Reference.length;
   private int y = Reference.y;
 
-  public Track(int trackX, int trackY, Component leftComponent)
+  public Track(int id, int length, int trackX, int trackY, Component leftComponent)
   {
     this.trackX = trackX;
     this.trackY = trackY;

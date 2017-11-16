@@ -4,9 +4,9 @@ public class TRSwitch extends Switch
 {
   private int length = Reference.length;
   private int y = Reference.y;
-  public TRSwitch(int trackX, int trackY, Component leftComponent)
+  public TRSwitch(int id, int trackX, int trackY, Component leftComponent)
   {
-    super(trackX, trackY, leftComponent);
+    super(id, trackX, trackY, leftComponent);
     canGoFromLeft = new boolean[]{false, true, true};
     canGoFromRight = new boolean[]{true, false, false};
     canGoFromSwitch = new boolean[]{true, false, false};

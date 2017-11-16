@@ -4,9 +4,9 @@ public class TLSwitch extends Switch
 {
   private int length = Reference.length;
   private int y = Reference.y;
-  public TLSwitch(int trackX, int trackY, Component leftComponent)
+  public TLSwitch(int id, int trackX, int trackY, Component leftComponent)
   {
-    super(trackX, trackY,leftComponent);
+    super(id, trackX, trackY,leftComponent);
     canGoFromLeft = new boolean[]{false, true, false};
     canGoFromRight = new boolean[]{true, false, true};
     canGoFromSwitch = new boolean[]{false, true, false};
