@@ -21,6 +21,7 @@ public class Signal extends Component
   @Override
   public void display(GraphicsContext gc)
   {
+    if(train != null) train.display(gc);
     if(this.isGreen())gc.setFill(Color.GREEN);
     else gc.setFill(Color.RED);
     gc.fillOval(length/2 + length*this.getTrackX()+40, y*this.getTrackY() + 175 , 20, 20);

@@ -1,3 +1,5 @@
+import javafx.scene.canvas.GraphicsContext;
+
 import java.util.ArrayList;
 
 public abstract class Switch extends Component
@@ -22,43 +24,30 @@ public abstract class Switch extends Component
   @Override
   public synchronized void acceptMessage(String message, ArrayList<Component> path, boolean sending)
   {
+    if(path != null && sending) path.add(this);
     if (message.substring(0, 1).compareTo(message.substring(1)) > 0) // message going right to left
     {
-      if (canGoFromRight[0])
+      synchronized (leftComponent)
       {
-        synchronized (leftComponent)
-        {
-          leftComponent.notify();
-        }
+        leftComponent.notify();
         leftComponent.acceptMessage(message, path, sending);
       }
-      if (canGoFromRight[2])
+      synchronized (partnerComponent)
       {
-        System.out.println("PARTNER MESSAGE");
-        synchronized (partnerComponent)
-        {
-          partnerComponent.notify();
-        }
+        partnerComponent.notify();
         partnerComponent.acceptMessage(message, path, sending);
       }
     }
     else
     {
-      if(canGoFromLeft[1])
+      synchronized (rightComponent)
       {
-        synchronized (rightComponent)
-        {
-          rightComponent.notify();
-        }
+        rightComponent.notify();
         rightComponent.acceptMessage(message, path, sending);
       }
-      if(canGoFromLeft[2])
+      synchronized (partnerComponent)
       {
-        System.out.println("PARTNER MESSAGE");
-        synchronized (partnerComponent)
-        {
-          partnerComponent.notify();
-        }
+        partnerComponent.notify();
         partnerComponent.acceptMessage(message, path, sending);
       }
     }
@@ -115,5 +104,10 @@ public abstract class Switch extends Component
       leftComponent.notify();
     }
     rightComponent.acceptMessage("GREEN", null, true);
+  }
+
+  public void display(GraphicsContext gc)
+  {
+    if(train != null) train.display(gc);
   }
 }

@@ -8,14 +8,19 @@ import java.util.ArrayList;
 public class Train implements Runnable
 {
   private Component currentComponent;
-  private int x, y;
+  private int x, y, dx, dy, destx, desty;
   private Image image;
 
   public Train(Component component)
   {
     currentComponent = component;
-    //x = component.getDestinationX();
-    //y = component.getDestintionY();
+    /*x = component.getDestinationX();
+    y = component.getDestintionY();
+    destx = x;
+    desty = y;*/
+    x = 100;
+    y = 100;
+    dx = dy = 0;
     image = new Image("resources/Train.png");
   }
 
@@ -31,9 +36,12 @@ public class Train implements Runnable
     }
     for(int i = 0; i < path.size(); i++)
     {
-      currentComponent.acceptMessage("LTRAIN", null, true);
+      currentComponent.setTrain(null);
       currentComponent = path.get(i);
-      currentComponent.acceptMessage("ATRAIN", null, true);
+      currentComponent.setTrain(this);
+
+      //move(currentComponent.getDestinationX(), getDestinationY());
+
       try {
         this.wait(1000);
       } catch (InterruptedException e) {
@@ -41,6 +49,20 @@ public class Train implements Runnable
       }
     }
 
+  }
+
+  public void move(int newx, int newy)
+  {
+    dx = (newx - x)/60;
+    dy = (newy - y)/60;
+    destx = newx;
+    desty = newy;
+  }
+
+  public void update()
+  {
+    if(x != destx) x += dx;
+    if(y != desty) y += dy;
   }
 
   public synchronized void display(GraphicsContext gc)

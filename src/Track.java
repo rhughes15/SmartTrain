@@ -25,6 +25,7 @@ public class Track extends Component
   public void display(GraphicsContext gc)
   {
     gc.strokeLine(length*this.getTrackX()+55, y*this.getTrackY() + 200, length +length*this.getTrackX()+44, y*this.getTrackY() + 200);
+    if(train != null) train.display(gc);
   }
 
   @Override

@@ -19,6 +19,7 @@ public class Station extends Component
   }
   public void display(GraphicsContext gc)
   {
+    if(train != null) train.display(gc);
     gc.setFill(Reference.COLORS[stationName.charAt(0)% Reference.COLORS.length]);
     gc.fillRect(Reference.length*trackX + 50, Reference.y*trackY+200 - Reference.length, Reference.length ,Reference.length);
   }
@@ -56,7 +57,7 @@ public class Station extends Component
       }
       track.acceptMessage(message.substring(1) + message.substring(0, 1), path, false);
     }
-    else if (sending)
+    else if (sending && path != null)
     {
       System.out.println("Message Received at Station " + stationName + ": " + message);
       System.out.print("path: ");
