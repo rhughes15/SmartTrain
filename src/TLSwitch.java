@@ -1,5 +1,14 @@
 import javafx.scene.canvas.GraphicsContext;
 
+//***********************************
+// Ryan Hughes and Jacob Traunero
+//
+// This class represents a specific switch, one of four.
+// The only things that are unique about these switches are their
+// constructors and the display method. This one is the switch
+// with a partner that is below and to the left of it.
+//***********************************
+
 public class TLSwitch extends Switch
 {
   private int length = Reference.length;

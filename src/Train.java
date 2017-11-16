@@ -5,6 +5,16 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
+//***********************************
+// Ryan Hughes and Jacob Traunero
+//
+// This class represents a train within our system. It is
+// created by the CanvasListener when one of the stations is
+// clicked. It is passed the Component that it will start at,
+// a station, and after being created it waits for further
+// instructions from the travel, move, and update methods
+//***********************************
+
 public class Train implements Runnable
 {
   private Component currentComponent;

@@ -18,6 +18,17 @@ import java.util.List;
 
 import static javafx.geometry.Pos.CENTER;
 
+//***********************************
+// Ryan Hughes and Jacob Traunero
+//
+// This class is used to display our system. It constructs our GUI,
+// displays the title page for our simulation, then makes the calls
+// to display and update our components. It also creates the CanvasListener
+// and assigns it to our canvas. It holds the GraphicsContext used by
+// all components to display themselves as well as the Timer and a list of
+// all components and all stations.
+//***********************************
+
 public class GUI
 {
   private Stage stage;

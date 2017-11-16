@@ -3,6 +3,17 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
+//***********************************
+// Ryan Hughes and Jacob Traunero
+//
+// This class is used to represent a signal and its adjacent track
+// in our system. It has a boolean to represent the signal state
+// (green or !green) as well as a left and right component. It will
+// generally only pass a message from one side of it to the other, unless
+// the message is "RED" or "GREEN". In these cases the color of the light
+// will change.
+//***********************************
+
 public class Signal extends Component
 {
   private Component leftComponent;

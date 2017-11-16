@@ -2,6 +2,15 @@ import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 
+//***********************************
+// Ryan Hughes and Jacob Traunero
+//
+// This class is used to represent a segment of track in our
+// system. Tracks are the most basic component in our system.
+// Tracks can have a Train on them, but they just pass messages
+// along when they get them.
+//***********************************
+
 public class Track extends Component
 {
   private Component leftComponent, rightComponent;
@@ -24,8 +33,8 @@ public class Track extends Component
   @Override
   public void display(GraphicsContext gc)
   {
-    gc.strokeLine(length*this.getTrackX()+55, y*this.getTrackY() + 200, length +length*this.getTrackX()+44, y*this.getTrackY() + 200);
     if(train != null) train.display(gc);
+    gc.strokeLine(length*this.getTrackX()+55, y*this.getTrackY() + 200, length +length*this.getTrackX()+44, y*this.getTrackY() + 200);
   }
 
   @Override

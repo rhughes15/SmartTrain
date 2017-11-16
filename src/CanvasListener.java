@@ -5,6 +5,19 @@ import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+//***********************************
+// Ryan Hughes and Jacob Traunero
+//
+// This class is the event listener for the canvas assigned
+// in GUI. It takes a list of components that should only consist
+// of all the Stations to be monitored. It is only called when a
+// click occurs somewhere on the canvas. When a click occurs,
+// it checks to see if the click was on a Station and either stores
+// the first station of the route to be found and creates a train
+// at the station, or it starts the message passing to find a route
+// for the Train.
+//***********************************
+
 public class CanvasListener implements EventHandler
 {
   private List<Component> components;

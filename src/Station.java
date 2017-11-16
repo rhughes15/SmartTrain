@@ -3,6 +3,16 @@ import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 
+//***********************************
+// Ryan Hughes and Jacob Traunero
+//
+// This class is used to represent a Station in our system.
+// The Station has a name and a track which are used to identify it
+// and connect it to the system. It currently prints the message
+// and path it receives with a few labels for testing. It can have a
+// train, in that case when it displays itself, it also displays the train
+//***********************************
+
 public class Station extends Component
 {
   private Component track, leftComponent;

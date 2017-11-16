@@ -1,5 +1,12 @@
 import javafx.scene.paint.Color;
 
+//***********************************
+// Ryan Hughes and Jacob Traunero
+//
+// This class is used as a collection of static references for global
+// use in our simulation.
+//***********************************
+
 public class Reference
 {
     public static final int length = 85;

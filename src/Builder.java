@@ -9,6 +9,16 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+//***********************************
+// Ryan Hughes and Jacob Traunero
+//
+// This class is used to construct our system of tracks, signals, switches
+// and stations. It reads the json called "components" in the resource folder
+// and checks the validity of the map as it goes. It links the necessary
+// components to each other so that they can communicate appropriately.
+// When it finishes constructing our components it does nothing.
+//***********************************
+
 
 public class Builder
 {

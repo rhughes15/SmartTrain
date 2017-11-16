@@ -2,6 +2,21 @@ import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 
+//***********************************
+// Ryan Hughes and Jacob Traunero
+//
+// This class is used to represent a switch in our system. This
+// where a lot of the logic for the route finding and route blocking
+// occurs. As the route finding message gets sent, it passes the
+// message along to all available routes as determined in the boolean
+// arrays that are defined by the child classes. After the route has been
+// found, as the message is on its way back, the switch sends out a
+// message to the Signals to turn red. They are supposed to send out a message
+// to the signals to turn green when the train leaves the switch on its
+// found route. Switches have a left and right component on the same line,
+// the partner component is the other switch on another line.
+//***********************************
+
 public abstract class Switch extends Component
 {
 

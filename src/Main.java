@@ -12,6 +12,14 @@ import java.util.List;
 
 import static javafx.geometry.Pos.CENTER;
 
+//***********************************
+// Ryan Hughes and Jacob Traunero
+//
+// Our main doesn't do anything other than make the calls to
+// get everything set up and started. The Builder constructs
+// our system and the GUI displays it.
+//***********************************
+
 public class Main extends Application
 {
   @Override
