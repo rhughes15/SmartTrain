@@ -9,9 +9,9 @@ public class Signal extends Component
   private int length = Reference.length;
   private int y = Reference.y;
   private boolean locked, red;
-  private int guiX, guiY;
   private boolean green = true;
-  public Signal(int id, int trackX, int trackY,Component leftComponent)
+
+  public Signal(int trackX, int trackY,Component leftComponent)
   {
     this.trackX = trackX;
     this.trackY = trackY;

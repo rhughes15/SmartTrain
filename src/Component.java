@@ -7,7 +7,7 @@ public abstract class Component implements Runnable
   abstract void acceptMessage(String message, ArrayList<Component> path, boolean sending);
   abstract void display(GraphicsContext gc);
   protected Component rightComponent;
-  protected int trackX, trackY;
+  protected int trackX, trackY, guiX, guiY;
 
   public void setRightComponent(Component component)
   {
@@ -21,6 +21,6 @@ public abstract class Component implements Runnable
   {
     return trackY;
   }
-
-
+  public int getGuiX() { return guiX; }
+  public int getGuiY() { return guiY; }
 }

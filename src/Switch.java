@@ -4,7 +4,6 @@ public abstract class Switch extends Component
 {
 
   protected Component leftComponent, partnerComponent;
-  private int guiX, guiY, partnerId, id;
   private boolean locked;
   protected boolean[] canGoFromLeft, canGoFromRight, canGoFromSwitch;
 
@@ -15,13 +14,13 @@ public abstract class Switch extends Component
     this.leftComponent = leftComponent;
     locked = false;
   }
-  public void setPartner(Component component)
+  public synchronized void setPartner(Component component)
   {
     partnerComponent = component;
   }
 
   @Override
-  public void acceptMessage(String message, ArrayList<Component> path, boolean sending)
+  public synchronized void acceptMessage(String message, ArrayList<Component> path, boolean sending)
   {
     if(sending)
     {
@@ -88,7 +87,7 @@ public abstract class Switch extends Component
   private void closeSignals()
   {
     leftComponent.notify();
-    leftComponent.acceptMessage("RED", null, true);
+    leftComponent.acceptMessage("RED", null, false);
     rightComponent.notify();
     rightComponent.acceptMessage("RED", null, true);
   }
@@ -96,7 +95,7 @@ public abstract class Switch extends Component
   private void openSignals()
   {
     leftComponent.notify();
-    leftComponent.acceptMessage("GREEN", null, true);
+    leftComponent.acceptMessage("GREEN", null, false);
     rightComponent.notify();
     rightComponent.acceptMessage("GREEN", null, true);
   }

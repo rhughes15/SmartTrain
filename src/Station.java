@@ -8,7 +8,6 @@ public class Station extends Component
   private Component track, leftComponent;
   private String stationName;
   private Train train;
-  private int guiX, guiY;
 
   public Station(int trackX, int trackY, String stationName)
   {
@@ -19,10 +18,8 @@ public class Station extends Component
   }
   public void display(GraphicsContext gc)
   {
-    guiX = Reference.length*trackX + 50;
-    guiY = Reference.y*trackY+200 - Reference.length;
-    gc.setFill(Reference.colors[stationName.charAt(0)% Reference.colors.length]);
-    gc.fillRect(guiX, guiY, Reference.length ,Reference.length);
+    gc.setFill(Reference.COLORS[stationName.charAt(0)% Reference.COLORS.length]);
+    gc.fillRect(Reference.length*trackX + 50, Reference.y*trackY+200 - Reference.length, Reference.length ,Reference.length);
 
   }
 
@@ -34,9 +31,6 @@ public class Station extends Component
   @Override
   public synchronized void acceptMessage(String message, ArrayList<Component> path, boolean sending)
   {
-    if((rightComponent.getClass().toString()).contains("station")) track = leftComponent;
-    else track = rightComponent;
-
     if(sending)
     {
       track.notify();
@@ -71,4 +65,6 @@ public class Station extends Component
   }
 
   public void setTrain(Train train) {this.train = train;}
+  public synchronized String getStationName() {return stationName;}
+  public synchronized Component getTrack() { return track; }
 }
