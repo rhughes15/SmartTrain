@@ -3,11 +3,18 @@ import java.util.ArrayList;
 public abstract class Switch extends Component
 {
 
-  protected Component leftComponent, partnerComponent;
+  protected Component leftComponent;
+
+  public Component getPartnerComponent()
+  {
+    return partnerComponent;
+  }
+
+  protected Component partnerComponent;
   private boolean locked;
   protected boolean[] canGoFromLeft, canGoFromRight, canGoFromSwitch;
 
-  public Switch(int id, int trackX, int trackY, Component leftComponent)
+  public Switch(int trackX, int trackY, Component leftComponent)
   {
     this.trackX = trackX;
     this.trackY = trackY;

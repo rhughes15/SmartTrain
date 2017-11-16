@@ -30,9 +30,11 @@ public class Station extends Component
   }
   public void setRightComponent(Component track)
   {
-    this.track = track;
     rightComponent = track;
+    if(rightComponent.getClass().toString().contains("Station")) this.track = leftComponent;
+    else this.track = rightComponent;
   }
+
 
   @Override
   public synchronized void acceptMessage(String message, ArrayList<Component> path, boolean sending)
