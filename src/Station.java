@@ -14,6 +14,8 @@ public class Station extends Component
     this.stationName = stationName;
     this.trackX = trackX;
     this.trackY = trackY;
+    guiX = Reference.length*trackX + 50;
+    guiY = Reference.y*trackY+200 - Reference.length;
   }
   public void display(GraphicsContext gc)
   {
@@ -25,6 +27,11 @@ public class Station extends Component
   public void setLeftComponent(Component component)
   {
     leftComponent = component;
+  }
+  public void setRightComponent(Component track)
+  {
+    this.track = track;
+    rightComponent = track;
   }
 
   @Override

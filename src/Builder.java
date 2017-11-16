@@ -36,7 +36,6 @@ public class Builder
            while ((line = br.readLine()) != null) {
                sb.append(line);
            }
-           System.out.println(sb);
            JSONObject a = (JSONObject) parser.parse(sb.toString());
 
 
@@ -51,7 +50,6 @@ public class Builder
                    int x = ((Long)object1.get("x")).intValue();
                    int y = ((Long) object1.get("y")).intValue();
                    int length = ((Long) object1.get("length")).intValue();
-                   System.out.println("id: " + id + ", x:" + x + ", y:" + y + ", type:" + type);
                    if(type.contains("switch"))
                    {
                        if(type.contains("bl"))
