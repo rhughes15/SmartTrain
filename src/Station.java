@@ -37,30 +37,17 @@ public class Station extends Component
   @Override
   public synchronized void acceptMessage(String message, ArrayList<Component> path, boolean sending)
   {
-    if(!sending)
+    if(sending)
     {
-      for (Component c : path)
-      {
-        if (c instanceof Track) System.out.println("T");
-        else if (c instanceof Switch) System.out.println("Sw");
-        else if (c instanceof Signal) System.out.println("Si");
-        else if (c instanceof Station) System.out.println("Station " + ((Station) c).getStationName());
-      }
-      if (train != null)
-      {
-        synchronized (train)
-        {
-          train.notify();
-        }
-        train.travel(path);
-      }
+      track.notify();
+      track.acceptMessage(message.substring(1) + message.substring(0, 1), path, false);
     }
     else
     {
-      if(stationName.equalsIgnoreCase(message.substring(1)))
+      if(train != null)
       {
-        path.add(this);
-        track.acceptMessage(message.substring(1) + message.substring(0, 1), path, !sending);
+        train.notify();
+        train.travel(path);
       }
     }
 
