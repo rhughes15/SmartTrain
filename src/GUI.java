@@ -21,14 +21,13 @@ public class GUI
 {
   private Stage stage;
   private List<Component> componentList;
-  private GraphicsContext gc;
-  private Timer timer;
+  private int length = Reference.length;
+  private int y = Reference.y;
 
   public GUI(Stage stage, List<Component> componentList)
   {
     this.stage = stage;
     this.componentList = componentList;
-    timer = new Timer(this);
     stage.show();
     stage.setScene(welcomeScreen());
     stage.setTitle("Smart Train");
@@ -61,20 +60,25 @@ public class GUI
 
     Group root = new Group();
     Canvas canvas = new Canvas(1200, 800);
-    canvas.setOnMouseClicked(new CanvasListener(componentList));
     root.getChildren().add(canvas);
-    gc = canvas.getGraphicsContext2D();
+    GraphicsContext gc = canvas.getGraphicsContext2D();
+    new AnimationTimer() {
+      @Override
+      public void handle(long now)
+      {
+        gc.clearRect(0,0, 1200, 800);
+        for (Component c: componentList)
+        {
+          System.out.println(c.getTrackX());
+          gc.setStroke(Color.rgb(0,0,0));
+          gc.setLineWidth(5);
+          c.display(gc);
+        }
+      }
+    }.start();
+
+
     Scene trainScene = new Scene(root, 1200, 800);
     return trainScene;
-  }
-
-  public void updateAllComponents()
-  {
-    gc.setStroke(Color.rgb(0,0,0));
-    gc.setLineWidth(5);
-    for (Component c: componentList)
-    {
-      c.display(gc);
-    }
   }
 }
