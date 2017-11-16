@@ -5,7 +5,14 @@ import java.util.ArrayList;
 public abstract class Switch extends Component
 {
 
-  protected Component leftComponent, partnerComponent;
+  protected Component leftComponent;
+
+  public Component getPartnerComponent()
+  {
+    return partnerComponent;
+  }
+
+  protected Component partnerComponent;
   private boolean locked;
   protected boolean[] canGoFromLeft, canGoFromRight, canGoFromSwitch;
 

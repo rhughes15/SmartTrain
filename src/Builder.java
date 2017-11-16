@@ -12,14 +12,14 @@ import java.util.List;
 
 public class Builder
 {
-    ArrayList<Switch> tlSwitches, trSwitches;
+    List<Switch> tlSwitch= new ArrayList<>();;
+    List<Switch> trSwitch = new ArrayList<>();
     Component lastComponent;
     List<Component> componentList = new ArrayList<Component>();
+
     public Builder()
     {
         buildTracksFromJSON();
-        tlSwitches = new ArrayList<>();
-        trSwitches = new ArrayList<>();
     }
 
     public List<Component> getComponentList()
@@ -30,114 +30,133 @@ public class Builder
     private void buildTracksFromJSON()
     {
         JSONParser parser = new JSONParser();
-       try
-       {
-           BufferedReader br =new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("resources/components.json")));
-           StringBuilder sb = new StringBuilder();
-           String line;
-           if(trSwitches == null || tlSwitches == null)
-           {
-             tlSwitches = new ArrayList<>();
-             trSwitches = new ArrayList<>();
-           }
-           while ((line = br.readLine()) != null) {
-               sb.append(line);
-           }
-           JSONObject a = (JSONObject) parser.parse(sb.toString());
+        try
+        {
+            BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("resources/components.json")));
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null)
+            {
+                sb.append(line);
+            }
+            JSONObject a = (JSONObject) parser.parse(sb.toString());
 
 
-           JSONArray components = (JSONArray) a.get("components");
+            JSONArray components = (JSONArray) a.get("components");
+            int x = 0;
+            int y = 0;
 
-               for (Object c : components)
-               {
-                   JSONObject object1 = (JSONObject) c;
-                   int id = ((Long)(object1.get("id"))).intValue();
-                   String type = (String) object1.get("type");
-                   int x = ((Long)object1.get("x")).intValue();
-                   int y = ((Long) object1.get("y")).intValue();
-                   int length = ((Long) object1.get("length")).intValue();
-                   if(type.contains("switch"))
-                   {
-                       if(type.contains("bl"))
-                       {
-                           BLSwitch component = new BLSwitch(x,y, lastComponent);
-                           Switch partner = trSwitches.remove(0);
-                           component.setPartner(partner);
-                           partner.setPartner(component);
-                           componentList.add(component);
-                           lastComponent.setRightComponent(component);
-                           lastComponent = component;
-                       }
-                       else if(type.contains("br"))
-                       {
-                         BRSwitch component = new BRSwitch(x,y, lastComponent);
-                         Switch partner = tlSwitches.remove(0);
-                         component.setPartner(partner);
-                         partner.setPartner(component);
-                         componentList.add(component);
-                         lastComponent.setRightComponent(component);
-                         lastComponent = component;
-                       }
-                       else if(type.contains("tl"))
-                       {
-                           TLSwitch component = new TLSwitch(x,y, lastComponent);
-                           tlSwitches.add(component);
-                           componentList.add(component);
-                           lastComponent.setRightComponent(component);
-                           lastComponent = component;
-                       }
-                       else
-                       {
-                           TRSwitch component = new TRSwitch(x,y, lastComponent);
-                           trSwitches.add(component);
-                           componentList.add(component);
-                           lastComponent.setRightComponent(component);
-                           lastComponent = component;
-                       }
-                   }
-                   else if (type.contains("track"))
-                   {
-                       Track component = new Track(id, length, x,y, lastComponent);
-                       componentList.add(component);
-                       lastComponent.setRightComponent(component);
-                       lastComponent = component;
-                   }
-                   else if (type.contains("signal"))
-                   {
+            boolean secondStation = false;
+            for (Object c : components)
+            {
+                JSONObject object1 = (JSONObject) c;
+                String type = (String) object1.get("type");
+                if (type.contains("switch"))
+                {
+                    if (type.contains("bl"))
+                    {
+                        BLSwitch component = new BLSwitch(x, y, lastComponent);
 
-                       Signal component = new Signal(x,y,lastComponent);
-                       componentList.add(component);
-                       lastComponent.setRightComponent(component);
-                       lastComponent = component;
+                        component.setPartner(tlSwitch.get(0));
+                        tlSwitch.get(0).setPartner(component);
+                        tlSwitch.remove(0);
 
-                   }
-                   else if (type.contains("station"))
-                   {
-                       String stationName = (String) object1.get("station");
-                       Station component = new Station(x, y, stationName);
-                       componentList.add(component);
-                       component.setLeftComponent(lastComponent);
-                       if(lastComponent != null) lastComponent.setRightComponent(component);
-                       lastComponent = component;
-                   }
-                   else System.out.println("Not a valid component");
+                        componentList.add(component);
+                        lastComponent.setRightComponent(component);
+                        lastComponent = component;
+                    } else if (type.contains("br"))
+                    {
+                        BRSwitch component = new BRSwitch(x, y, lastComponent);
 
+                        component.setPartner(trSwitch.get(0));
+                        trSwitch.get(0).setPartner(component);
+                        trSwitch.remove(trSwitch.get(0));
 
+                        componentList.add(component);
+                        lastComponent.setRightComponent(component);
+                        lastComponent = component;
+                    } else if (type.contains("tl"))
+                    {
+                        TLSwitch component = new TLSwitch(x, y, lastComponent);
+                        tlSwitch.add(component);
 
-           }
-       }
-       catch(FileNotFoundException ex)
-       {
-           System.out.println(ex);
-       }
-       catch (IOException ex2)
-       {
-           System.out.println(ex2);
-       }
-       catch (ParseException ex3)
-       {
-           System.out.println(ex3);
-       }
+                        componentList.add(component);
+                        lastComponent.setRightComponent(component);
+                        lastComponent = component;
+                    } else if(type.contains("tr"))
+                    {
+                        TRSwitch component = new TRSwitch(x, y, lastComponent);
+                        trSwitch.add(component);
+
+                        componentList.add(component);
+                        lastComponent.setRightComponent(component);
+                        lastComponent = component;
+                    }
+                } else if (type.contains("track"))
+                {
+                    Track component = new Track(x, y, lastComponent);
+                    componentList.add(component);
+                    lastComponent.setRightComponent(component);
+                    lastComponent = component;
+                } else if (type.contains("signal"))
+                {
+
+                    Signal component = new Signal(x, y, lastComponent);
+                    componentList.add(component);
+                    lastComponent.setRightComponent(component);
+                    lastComponent = component;
+
+                } else if (type.contains("station"))
+                {
+                    String stationName = (String) object1.get("station");
+                    Station component = new Station(x, y, stationName);
+                    componentList.add(component);
+                    component.setLeftComponent(lastComponent);
+                    if (lastComponent != null) lastComponent.setRightComponent(component);
+                    lastComponent = component;
+                    if (secondStation)
+                    {
+                        y++;
+                        x=-1;
+                    }
+                    secondStation = !secondStation;
+                }
+                else
+                {
+                    System.out.println("Not a valid component");
+                    System.exit(1);
+                }
+
+                x++;
+            }
+            for(Component c : componentList)
+            {
+                if(c instanceof Switch)
+                {
+                    Switch aSwitch = (Switch) c;
+                    System.out.println("This:" +aSwitch.getTrackX() + "" + aSwitch.getTrackY());
+                    System.out.println(aSwitch.getPartnerComponent() == null);
+                    System.out.println("Partner:" + aSwitch.getPartnerComponent().getTrackX() + "" + aSwitch.getPartnerComponent().getTrackY());
+                    if((aSwitch.getPartnerComponent() == null)
+                            ||(aSwitch.getPartnerComponent().getTrackY() != aSwitch.getTrackY()+1 && aSwitch.getPartnerComponent().getTrackY()+1 != aSwitch.getTrackY())
+                            ||(aSwitch.getPartnerComponent().getTrackX() != aSwitch.getTrackX()))
+                    {
+                        System.out.println("ERROR: Mismatched switches.");
+                        System.exit(1);
+                    }
+                }
+            }
+
+        } catch (FileNotFoundException ex)
+        {
+            System.out.println(ex);
+        } catch (IOException ex2)
+        {
+            System.out.println(ex2);
+        } catch (ParseException ex3)
+        {
+            System.out.println(ex3);
+        }
 
     }
 }
