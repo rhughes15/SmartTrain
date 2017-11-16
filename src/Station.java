@@ -15,6 +15,7 @@ public class Station extends Component
     this.stationName = stationName;
     this.trackX = trackX;
     this.trackY = trackY;
+
   }
   public void display(GraphicsContext gc)
   {
@@ -35,7 +36,7 @@ public class Station extends Component
   {
     if((rightComponent.getClass().toString()).contains("station")) track = leftComponent;
     else track = rightComponent;
-
+    
     if(sending)
     {
       track.notify();
