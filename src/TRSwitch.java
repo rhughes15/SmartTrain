@@ -25,7 +25,9 @@ public class TRSwitch extends Switch
   public synchronized void display(GraphicsContext gc)
   {
     super.display(gc);
-    gc.strokeLine(length * this.getTrackX() + 55, y * this.getTrackY() + 200, length + length * this.getTrackX() + 44, y * this.getTrackY() + 200);
-    gc.strokeLine(length * this.getTrackX() + 55, y * this.getTrackY() + 200, length / 2 + length * this.getTrackX() + 50, (y) * this.getTrackY() + 200 + y / 2);
+    guiX = length * this.getTrackX() + 55;
+    guiY = y * this.getTrackY() + 200;
+    gc.strokeLine(guiX, guiY, length + length * this.getTrackX() + 44, guiY);
+    gc.strokeLine(guiX, guiY, length / 2 + length * this.getTrackX() + 50, guiY + y / 2);
   }
 }

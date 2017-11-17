@@ -28,7 +28,6 @@ public abstract class Switch extends Component
   }
 
   protected Component partnerComponent;
-  private boolean locked;
   protected boolean[] canGoFromLeft, canGoFromRight, canGoFromSwitch;
   private String message;
   private ArrayList<Component> path;
@@ -39,7 +38,6 @@ public abstract class Switch extends Component
     this.trackX = trackX;
     this.trackY = trackY;
     this.leftComponent = leftComponent;
-    locked = false;
   }
   public synchronized void setPartner(Component component)
   {
@@ -75,7 +73,7 @@ public abstract class Switch extends Component
   {
     synchronized (this)
     {
-      while (!locked)
+      while (true)
       {
           try
           {
@@ -87,26 +85,6 @@ public abstract class Switch extends Component
           messageAccepted(message, path, sending);
       }
     }
-  }
-  private void closeSignals()
-  {
-
-    leftComponent.acceptMessage("RED", null, false);
-    rightComponent.acceptMessage("RED", null, true);
-  }
-
-  private void openSignals()
-  {
-    synchronized (leftComponent)
-    {
-      leftComponent.notify();
-    }
-    leftComponent.acceptMessage("GREEN", null, false);
-    synchronized (leftComponent)
-    {
-      leftComponent.notify();
-    }
-    rightComponent.acceptMessage("GREEN", null, true);
   }
 
   public void display(GraphicsContext gc)

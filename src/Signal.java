@@ -31,6 +31,8 @@ public class Signal extends Component
     this.trackX = trackX;
     this.trackY = trackY;
     this.leftComponent = leftComponent;
+    guiX = length * this.getTrackX() + 55;
+    guiY =  y * this.getTrackY() + 200;
   }
 
   @Override
@@ -40,7 +42,7 @@ public class Signal extends Component
     if(this.isGreen())gc.setFill(Color.GREEN);
     else gc.setFill(Color.RED);
     gc.fillOval(length/2 + length*this.getTrackX()+40, y*this.getTrackY() + 175 , 20, 20);
-    gc.strokeLine(length * this.getTrackX() + 55, y * this.getTrackY() + 200, length + length * this.getTrackX() + 44, y * this.getTrackY() + 200);
+    gc.strokeLine(guiX, guiY, length + length * this.getTrackX() + 44, y * this.getTrackY() + 200);
   }
 
   @Override

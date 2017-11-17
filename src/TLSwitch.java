@@ -25,7 +25,9 @@ public class TLSwitch extends Switch
   public synchronized void display(GraphicsContext gc)
   {
     super.display(gc);
-    gc.strokeLine(length*this.getTrackX()+55, y*this.getTrackY() + 200, length +length*this.getTrackX()+44, y*this.getTrackY() + 200);
-    gc.strokeLine(length/2 + length*this.getTrackX()+50, y*this.getTrackY() + y/2 + 200, length +length*this.getTrackX()+44, (y)*this.getTrackY() + 200 );
+    guiX = length + length * this.getTrackX() + 44;
+    guiY = y * this.getTrackY() + 200;
+    gc.strokeLine(length*this.getTrackX()+55, guiY, guiX, guiY);
+    gc.strokeLine(length/2 + length*this.getTrackX()+50, y*this.getTrackY() + y/2 + 200, guiX, guiY);
   }
 }
