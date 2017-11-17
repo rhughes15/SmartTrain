@@ -2,283 +2,127 @@
 	"maxTrains": 1,
 	"components": [
 		{
-			"id": 0,
 			"type": "station",
-			"x": 0,
-			"y": 0,
-			"length": 1,
 			"station": "A"
 		},
 		{
-			"id": 1,
-			"type": "track",
-			"x": 1,
-			"y": 0,
-			"length": 1
+			"type": "track"
 		},
 		{
-			"id": 2,
-			"type": "track",
-			"x": 2,
-			"y": 0,
-			"length": 1
+			"type": "track"
 		},
 		{
-			"id": 3,
-			"type": "track",
-			"x": 3,
-			"y": 0,
-			"length": 1
+			"type": "track"
 		},
 		{
-			"id": 4,
-			"type": "signal",
-			"x": 4,
-			"y": 0,
-			"length": 1
+			"type": "signal"
 		},
 		{
-			"id": 5,
-			"type": "trswitch",
-			"x": 5,
-			"y": 0,
-			"length": 1
+			"type": "trswitch"
 		},
 		{
-			"id": 6,
-			"type": "signal",
-			"x": 6,
-			"y": 0,
-			"length": 1
+			"type": "signal"
 		},
 		{
-			"id": 7,
-			"type": "track",
-			"x": 7,
-			"y": 0,
-			"length": 1
+			"type": "track"
 		},
 		{
-			"id": 8,
-			"type": "signal",
-			"x": 8,
-			"y": 0,
-			"length": 1
+			"type": "signal"
 		},
 		{
-			"id": 9,
-			"type": "tlswitch",
-			"x": 9,
-			"y": 0,
-			"length": 1
+			"type": "tlswitch"
 		},
 		{
-			"id": 10,
-			"type": "signal",
-			"x": 10,
-			"y": 0,
-			"length": 1
+			"type": "signal"
 		},
 		{
-			"id": 11,
-			"type": "track",
-			"x": 11,
-			"y": 0,
-			"length": 1
+			"type": "track"
 		},
 		{
-			"id": 12,
 			"type": "station",
-			"x": 12,
-			"y": 0,
-			"length": 1,
-			"station": "X"
+			"station": "Z"
 		},
 		{
-			"id": 13,
 			"type": "station",
-			"x": 0,
-			"y": 1,
-			"length": 1,
 			"station": "B"
 		},
 		{
-			"id": 14,
-			"type": "track",
-			"x": 1,
-			"y": 1,
-			"length": 1
+			"type": "track"
 		},
 		{
-			"id": 15,
-			"type": "signal",
-			"x": 2,
-			"y": 1,
-			"length": 1
+			"type": "signal"
 		},
 		{
-			"id": 16,
-			"type": "tlswitch",
-			"x": 3,
-			"y": 1,
-			"length": 1
+			"type": "tlswitch"
 		},
 		{
-			"id": 17,
-			"type": "signal",
-			"x": 4,
-			"y": 1,
-			"length": 1
+			"type": "signal"
 		},
 		{
-			"id": 18,
-			"type": "brswitch",
-			"x": 5,
-			"y": 1,
-			"length": 1
+			"type": "brswitch"
 		},
 		{
-			"id": 19,
-			"type": "signal",
-			"x": 6,
-			"y": 1,
-			"length": 1
+			"type": "signal"
 		},
 		{
-			"id": 20,
-			"type": "trswitch",
-			"x": 7,
-			"y": 1,
-			"length": 1
+			"type": "trswitch"
 		},
 		{
-			"id": 21,
-			"type": "signal",
-			"x": 8,
-			"y": 1,
-			"length": 1
+			"type": "signal"
 		},
 		{
-			"id": 22,
-			"type": "blswitch",
-			"x": 9,
-			"y": 1,
-			"length": 1
+			"type": "blswitch"
 		},
 		{
-			"id": 23,
-			"type": "signal",
-			"x": 10,
-			"y": 1,
-			"length": 1
+			"type": "signal"
 		},
 		{
-			"id": 24,
-			"type": "track",
-			"x": 11,
-			"y": 1,
-			"length": 1
+			"type": "track"
 		},
 		{
-			"id": 25,
 			"type": "station",
-			"x": 12,
-			"y": 1,
-			"length": 1,
 			"station": "Y"
 		},
 		{
-			"id": 26,
 			"type": "station",
-			"x": 0,
-			"y": 2,
-			"length": 1,
 			"station": "C"
 		},
 		{
-			"id": 27,
-			"type": "track",
-			"x": 1,
-			"y": 2,
-			"length": 1
+			"type": "track"
 		},
 		{
-			"id": 28,
-			"type": "signal",
-			"x": 2,
-			"y": 2,
-			"length": 1
+			"type": "signal"
 		},
 		{
-			"id": 29,
-			"type": "blswitch",
-			"x": 3,
-			"y": 2,
-			"length": 1
+			"type": "blswitch"
 		},
 		{
-			"id": 30,
-			"type": "signal",
-			"x": 4,
-			"y": 2,
-			"length": 1
+			"type": "signal"
 		},
 		{
-			"id": 31,
-			"type": "track",
-			"x": 5,
-			"y": 2,
-			"length": 1
+			"type": "track"
 		},
 		{
-			"id": 32,
-			"type": "signal",
-			"x": 6,
-			"y": 2,
-			"length": 1
+			"type": "signal"
 		},
 		{
-			"id": 33,
-			"type": "brswitch",
-			"x": 7,
-			"y": 2,
-			"length": 1
+			"type": "brswitch"
 		},
 		{
-			"id": 34,
-			"type": "signal",
-			"x": 8,
-			"y": 2,
-			"length": 1
+			"type": "signal"
 		},
 		{
-			"id": 35,
-			"type": "track",
-			"x": 9,
-			"y": 2,
-			"length": 1
+			"type": "track"
 		},
 		{
-			"id": 36,
-			"type": "track",
-			"x": 10,
-			"y": 2,
-			"length": 1
+			"type": "track"
 		},
 		{
-			"id": 37,
-			"type": "track",
-			"x": 11,
-			"y": 2,
-			"length": 1
+			"type": "track"
 		},
 		{
-			"id": 38,
 			"type": "station",
-			"x": 12,
-			"y": 2,
-			"length": 1,
-			"station": "Z"
+			"station": "X"
 		}
 	]
 }

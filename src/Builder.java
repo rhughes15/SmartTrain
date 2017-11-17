@@ -66,6 +66,8 @@ public class Builder
                     if (type.contains("bl"))
                     {
                         BLSwitch component = new BLSwitch(x, y, lastComponent);
+                        Thread t = new Thread(component);
+                        t.start();
 
                         component.setPartner(tlSwitch.get(0));
                         tlSwitch.get(0).setPartner(component);
@@ -77,6 +79,8 @@ public class Builder
                     } else if (type.contains("br"))
                     {
                         BRSwitch component = new BRSwitch(x, y, lastComponent);
+                        Thread t = new Thread(component);
+                        t.start();
 
                         component.setPartner(trSwitch.get(0));
                         trSwitch.get(0).setPartner(component);
@@ -88,30 +92,40 @@ public class Builder
                     } else if (type.contains("tl"))
                     {
                         TLSwitch component = new TLSwitch(x, y, lastComponent);
-                        tlSwitch.add(component);
+                        Thread t = new Thread(component);
+                        t.start();
 
+                        tlSwitch.add(component);
                         componentList.add(component);
                         lastComponent.setRightComponent(component);
                         lastComponent = component;
                     } else if(type.contains("tr"))
                     {
                         TRSwitch component = new TRSwitch(x, y, lastComponent);
+                        Thread t = new Thread(component);
+                        t.start();
+
                         trSwitch.add(component);
 
                         componentList.add(component);
                         lastComponent.setRightComponent(component);
                         lastComponent = component;
+
                     }
+
                 } else if (type.contains("track"))
                 {
                     Track component = new Track(x, y, lastComponent);
+                    Thread t = new Thread(component);
+                    t.start();
                     componentList.add(component);
                     lastComponent.setRightComponent(component);
                     lastComponent = component;
                 } else if (type.contains("signal"))
                 {
-
                     Signal component = new Signal(x, y, lastComponent);
+                    Thread t = new Thread(component);
+                    t.start();
                     componentList.add(component);
                     lastComponent.setRightComponent(component);
                     lastComponent = component;
@@ -120,6 +134,8 @@ public class Builder
                 {
                     String stationName = (String) object1.get("station");
                     Station component = new Station(x, y, stationName);
+                    Thread t = new Thread(component);
+                    t.start();
                     componentList.add(component);
                     component.setLeftComponent(lastComponent);
                     if (lastComponent != null) lastComponent.setRightComponent(component);
@@ -139,14 +155,12 @@ public class Builder
 
                 x++;
             }
+            componentList.get(componentList.size() -1 ).setRightComponent(null);
             for(Component c : componentList)
             {
                 if(c instanceof Switch)
                 {
                     Switch aSwitch = (Switch) c;
-                    System.out.println("This:" +aSwitch.getTrackX() + "" + aSwitch.getTrackY());
-                    System.out.println(aSwitch.getPartnerComponent() == null);
-                    System.out.println("Partner:" + aSwitch.getPartnerComponent().getTrackX() + "" + aSwitch.getPartnerComponent().getTrackY());
                     if((aSwitch.getPartnerComponent() == null)
                             ||(aSwitch.getPartnerComponent().getTrackY() != aSwitch.getTrackY()+1 && aSwitch.getPartnerComponent().getTrackY()+1 != aSwitch.getTrackY())
                             ||(aSwitch.getPartnerComponent().getTrackX() != aSwitch.getTrackX()))

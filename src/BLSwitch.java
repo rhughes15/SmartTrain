@@ -16,8 +16,8 @@ public class BLSwitch extends Switch
   public BLSwitch(int trackX, int trackY, Component leftNeighbor)
   {
     super(trackX, trackY, leftNeighbor);
-    canGoFromLeft = new boolean[]{false, true, false};
-    canGoFromRight = new boolean[]{true, false, true};
+    canGoFromLeft = new boolean[]{false, true, true};
+    canGoFromRight = new boolean[]{true, false, false};
     canGoFromSwitch = new boolean[]{false, true, false};
   }
   @Override

@@ -30,6 +30,9 @@ public abstract class Switch extends Component
   protected Component partnerComponent;
   private boolean locked;
   protected boolean[] canGoFromLeft, canGoFromRight, canGoFromSwitch;
+  private String message;
+  private ArrayList<Component> path;
+  private boolean sending;
 
   public Switch(int trackX, int trackY, Component leftComponent)
   {
@@ -46,71 +49,49 @@ public abstract class Switch extends Component
   @Override
   public synchronized void acceptMessage(String message, ArrayList<Component> path, boolean sending)
   {
+    this.message = message;
+    this.path = new ArrayList<>(path);
+    this.sending = sending;
+    this.notify();
+  }
+  public void messageAccepted(String message, ArrayList<Component> path, boolean sending)
+  {
     if(path != null && sending) path.add(this);
-    if (message.substring(0, 1).compareTo(message.substring(1)) > 0) // message going right to left
+    boolean rightToLeft = message.substring(0, 1).compareTo(message.substring(1)) > 0;
+    if (rightToLeft) // message going right to left
     {
-      synchronized (leftComponent)
-      {
-        leftComponent.notify();
-        leftComponent.acceptMessage(message, path, sending);
-      }
-      synchronized (partnerComponent)
-      {
-        partnerComponent.notify();
-        partnerComponent.acceptMessage(message, path, sending);
-      }
+        if (canGoFromRight[0]) leftComponent.acceptMessage(message, path, sending);
+        if (canGoFromRight[1])partnerComponent.acceptMessage(message, path, sending);
     }
     else
     {
-      synchronized (rightComponent)
-      {
-        rightComponent.notify();
-        rightComponent.acceptMessage(message, path, sending);
-      }
-      synchronized (partnerComponent)
-      {
-        partnerComponent.notify();
-        partnerComponent.acceptMessage(message, path, sending);
-      }
+      if (canGoFromLeft[2])rightComponent.acceptMessage(message, path, sending);
+      if (canGoFromLeft[1])partnerComponent.acceptMessage(message, path, sending);
     }
-    if(!sending) closeSignals();
-
-    try {
-      this.wait();
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-  }
+}
 
   @Override
   public void run()
   {
     synchronized (this)
     {
-      if(locked == false)
+      while (!locked)
       {
-        try
-        {
-          this.wait();
-        } catch (InterruptedException e)
-        {
-          e.printStackTrace();
-        }
+          try
+          {
+            this.wait();
+          } catch (InterruptedException e)
+          {
+            e.printStackTrace();
+          }
+          messageAccepted(message, path, sending);
       }
     }
   }
-
   private void closeSignals()
   {
-    synchronized (leftComponent)
-    {
-      leftComponent.notify();
-    }
+
     leftComponent.acceptMessage("RED", null, false);
-    synchronized(rightComponent)
-    {
-      rightComponent.notify();
-    }
     rightComponent.acceptMessage("RED", null, true);
   }
 

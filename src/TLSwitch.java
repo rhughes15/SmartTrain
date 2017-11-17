@@ -16,8 +16,8 @@ public class TLSwitch extends Switch
   public TLSwitch(int trackX, int trackY, Component leftComponent)
   {
     super(trackX, trackY,leftComponent);
-    canGoFromLeft = new boolean[]{false, true, false};
-    canGoFromRight = new boolean[]{true, false, true};
+    canGoFromLeft = new boolean[]{false, false, true};
+    canGoFromRight = new boolean[]{true, true, false};
     canGoFromSwitch = new boolean[]{false, true, false};
   }
 

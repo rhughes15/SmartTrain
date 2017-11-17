@@ -32,10 +32,12 @@ public class Train implements Runnable
     y = 100;
     dx = dy = 0;
     image = new Image("resources/Train.png");
+
   }
 
   public synchronized void travel(ArrayList<Component> path)
   {
+    if (path == null) System.out.println("Station Unreachable");
     System.out.println("Train path: ");
     for(Component c : path)
     {
@@ -77,8 +79,8 @@ public class Train implements Runnable
 
   public synchronized void display(GraphicsContext gc)
   {
-    gc.setFill(Color.BLACK);
-    gc.fillRect(x, y, 100, 50);
+    gc.drawImage(image,x, y);
+   // gc.fillRect(x, y, 100, 50);
   }
 
   @Override

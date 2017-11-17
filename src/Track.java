@@ -17,6 +17,9 @@ public class Track extends Component
   private boolean locked;
   private int length = Reference.length;
   private int y = Reference.y;
+  private String message;
+  private ArrayList<Component> path;
+  private boolean sending;
 
   public Track(int trackX, int trackY, Component leftComponent)
   {
@@ -40,22 +43,22 @@ public class Track extends Component
   @Override
   public synchronized void acceptMessage(String message, ArrayList<Component> path, boolean sending)
   {
+
+    this.message = message;
+    this.path = new ArrayList<>(path);
+    this.sending = sending;
+    this.notify();
+  }
+  private synchronized void messageAccepted(String message, ArrayList<Component> path, boolean sending)
+  {
     if(message.equalsIgnoreCase("red") || message.equalsIgnoreCase("green"))
     {
       if(sending)
       {
-        synchronized (rightComponent)
-        {
-          rightComponent.notify();
-        }
         rightComponent.acceptMessage(message, path, sending);
       }
       else
       {
-        synchronized (leftComponent)
-        {
-          leftComponent.notify();
-        }
         leftComponent.acceptMessage(message, path, sending);
       }
     }
@@ -63,44 +66,36 @@ public class Track extends Component
     {
       if(sending) path.add(this);
       else locked = true;
-      synchronized (leftComponent)
-      {
-        leftComponent.notify();
-      }
       leftComponent.acceptMessage(message, path, sending);
     }
     else
     {
       if(sending) path.add(this);
       else locked = true;
-      synchronized (rightComponent)
-      {
-        rightComponent.notify();
-      }
       rightComponent.acceptMessage(message, path, sending);
     }
-
-    try {
-      this.wait();
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
   }
-
   @Override
   public void run()
   {
     synchronized (this)
     {
-      if(locked == false)
+
+      while(locked == false)
       {
-        try
-        {
-          this.wait();
-        } catch (InterruptedException e)
-        {
-          e.printStackTrace();
-        }
+          try
+          {
+            this.wait();
+
+
+          } catch (InterruptedException e)
+          {
+            e.printStackTrace();
+          }
+          messageAccepted(message, path, sending);
+          message = "";
+
+
       }
     }
   }

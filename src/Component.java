@@ -19,6 +19,7 @@ public abstract class Component implements Runnable
   protected Component rightComponent;
   protected int trackX, trackY, guiX, guiY;
   protected Train train;
+  protected int timesVisited;
 
   abstract void acceptMessage(String message, ArrayList<Component> path, boolean sending);
   abstract void display(GraphicsContext gc);
@@ -38,4 +39,5 @@ public abstract class Component implements Runnable
   }
   public int getGuiX() { return guiX; }
   public int getGuiY() { return guiY; }
+
 }
