@@ -61,7 +61,7 @@ public class Station extends Component
     this.sending = sending;
     this.notify();
   }
-  public synchronized void messageAccepted(String message, ArrayList<Component> path, boolean sending)
+  public void messageAccepted(String message, ArrayList<Component> path, boolean sending)
   {
 
     if (sending && stationName.equalsIgnoreCase(message.substring(1)))
@@ -82,14 +82,15 @@ public class Station extends Component
     } else if (sending && path != null)
     {
       System.out.println("Message Received at Station " + stationName + ": " + message);
-      System.out.print("path: ");
-      for (Component c : path)
-      {
-        if (c instanceof Track) System.out.print("T ");
-        else if (c instanceof Signal) System.out.print("Si ");
-        else if (c instanceof Switch) System.out.print("Sw ");
-        else if (c instanceof Station) System.out.println("Station " + ((Station) c).getStationName());
-      }
+      System.out.println("Wrong station");
+      //System.out.print("path: ");
+//      for (Component c : path)
+//      {
+//        if (c instanceof Track) System.out.print("T ");
+//        else if (c instanceof Signal) System.out.print("Si ");
+//        else if (c instanceof Switch) System.out.print("Sw ");
+//        else if (c instanceof Station) System.out.println("Station " + ((Station) c).getStationName());
+//      }
     }
     if (!sending && stationName.equalsIgnoreCase(message.substring(1)))
     {
@@ -102,14 +103,10 @@ public class Station extends Component
         else if (c instanceof Switch) System.out.print("Sw ");
         else if (c instanceof Station) System.out.println("Station " + ((Station) c).getStationName());
       }
-
+      track.setTrain(new Train(track));
 
       if (train != null)
       {
-        synchronized (train)
-        {
-          train.notify();
-        }
         train.travel(path);
       }
     }

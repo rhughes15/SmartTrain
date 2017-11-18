@@ -49,21 +49,20 @@ public class Signal extends Component
   public synchronized void acceptMessage(String message, ArrayList<Component> path, boolean sending)
   {
     this.message = message;
-    if(path != null)this.path = new ArrayList<Component>(path);
+    this.path = new ArrayList<>(path);
     this.sending = sending;
     this.notify();
 
   }
   public void messageAccepted(String message, ArrayList<Component> path, boolean sending)
   {
-
+    //if(!sending)System.out.println(this.getClass());
     if(message.length() == 2)
     {
 
       if (sending) path.add(this);
       else if(path.contains(this))
       {
-        locked = true;
         green = true;
       }
 
@@ -75,16 +74,6 @@ public class Signal extends Component
       {
         rightComponent.acceptMessage(message, path, sending);
       }
-    }
-    else if(message.equalsIgnoreCase("red") && !locked)
-    {
-      green = false;
-      locked = true;
-    }
-    else if(message.equalsIgnoreCase("green") && !locked)
-    {
-      green = true;
-      locked = true;
     }
   }
   @Override

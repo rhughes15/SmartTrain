@@ -87,6 +87,7 @@ public class GUI
 
   public void updateAllComponents()
   {
+    gc.clearRect(0,0,1200,800);
     for(Component c : componentList)
     {
       c.display(gc);

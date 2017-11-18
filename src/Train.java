@@ -15,7 +15,7 @@ import java.util.ArrayList;
 // instructions from the travel, move, and update methods
 //***********************************
 
-public class Train implements Runnable
+public class Train
 {
   private Component currentComponent;
   private int x, y, dx, dy, destx, desty;
@@ -24,10 +24,6 @@ public class Train implements Runnable
   public Train(Component component)
   {
     currentComponent = component;
-    /*x = component.getDestinationX();
-    y = component.getDestintionY();
-    destx = x;
-    desty = y;*/
     x = 100;
     y = 100;
     dx = dy = 0;
@@ -45,20 +41,6 @@ public class Train implements Runnable
       else if (c instanceof Signal) System.out.print("Si ");
       else if (c instanceof Switch) System.out.print("Sw ");
       else if (c instanceof Station) System.out.println("Station " + ((Station) c).getStationName());
-    }
-    for(int i = 0; i < path.size(); i++)
-    {
-      currentComponent.setTrain(null);
-      currentComponent = path.get(i);
-      currentComponent.setTrain(this);
-
-      //move(currentComponent.getDestinationX(), getDestinationY());
-
-      try {
-        this.wait(1000);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
     }
 
   }
@@ -79,23 +61,7 @@ public class Train implements Runnable
 
   public synchronized void display(GraphicsContext gc)
   {
-    gc.drawImage(image,x, y);
-   // gc.fillRect(x, y, 100, 50);
+    gc.drawImage(image,currentComponent.getGuiX(), currentComponent.getGuiY()-20);
   }
 
-  @Override
-  public void run()
-  {
-    synchronized (this)
-    {
-      try
-      {
-        this.wait();
-      }
-      catch (InterruptedException e)
-      {
-        e.printStackTrace();
-      }
-    }
-  }
 }

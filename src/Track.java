@@ -36,8 +36,15 @@ public class Track extends Component
   @Override
   public void display(GraphicsContext gc)
   {
-    if(train != null) train.display(gc);
-    gc.strokeLine(length*this.getTrackX()+55, y*this.getTrackY() + 200, length +length*this.getTrackX()+44, y*this.getTrackY() + 200);
+    if(train != null)
+    {
+      System.out.println("Train not null");
+      train.display(gc);
+
+    }
+    guiX = length * this.getTrackX() + 55;
+    guiY = y * this.getTrackY() + 200;
+    gc.strokeLine(guiX, guiY, length +length*this.getTrackX()+44, guiY);
   }
 
   @Override
@@ -49,8 +56,9 @@ public class Track extends Component
     this.sending = sending;
     this.notify();
   }
-  private synchronized void messageAccepted(String message, ArrayList<Component> path, boolean sending)
+  private void messageAccepted(String message, ArrayList<Component> path, boolean sending)
   {
+    //if(!sending)System.out.println(this.getClass());
     if(message.equalsIgnoreCase("red") || message.equalsIgnoreCase("green"))
     {
       if(sending)
@@ -81,7 +89,7 @@ public class Track extends Component
     synchronized (this)
     {
 
-      while(locked == false)
+      while(true)
       {
           try
           {

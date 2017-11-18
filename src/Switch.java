@@ -54,6 +54,7 @@ public abstract class Switch extends Component
   }
   public void messageAccepted(String message, ArrayList<Component> path, boolean sending)
   {
+    //if(!sending)System.out.println(this.getClass());
     if(path != null && sending) path.add(this);
     boolean rightToLeft = message.substring(0, 1).compareTo(message.substring(1)) > 0;
     if (rightToLeft) // message going right to left

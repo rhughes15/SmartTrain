@@ -41,7 +41,6 @@ public class CanvasListener implements EventHandler
         }
         else
         {
-          firstStation.setTrain(new Train(firstStation));
           firstStation.getTrack().acceptMessage(firstStation.getStationName() +
             ((Station)c).getStationName(), new ArrayList<>(), true);
           firstStation = null;

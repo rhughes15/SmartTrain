@@ -17,7 +17,7 @@ public class BRSwitch extends Switch
   {
     super(trackX, trackY, leftComponent);
     canGoFromLeft = new boolean[]{false, false, true};
-    canGoFromRight = new boolean[]{true, false, false};
+    canGoFromRight = new boolean[]{true, true, false};
     canGoFromSwitch = new boolean[]{true, false, false};
 
   }
