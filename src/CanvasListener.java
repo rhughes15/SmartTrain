@@ -41,14 +41,21 @@ public class CanvasListener implements EventHandler
         }
         else
         {
-          firstStation.getTrack().acceptMessage(firstStation.getStationName() +
-            ((Station)c).getStationName(), new ArrayList<>(), true);
-          firstStation = null;
+          if((((Station)c).getStationName().charAt(0)< 'S' && firstStation.getStationName().charAt(0)<'S') || ((Station)c).getStationName().charAt(0)>= 'S' && firstStation.getStationName().charAt(0)>='S') firstStation = null;
+         else
+          {
+            firstStation.getTrack().acceptMessage(firstStation.getStationName() + ((Station) c).getStationName(), new ArrayList<>(), true);
+            firstStation = null;
+          }
         }
       }
     }
   }
-
+  //**********************************
+  // This method checks if the user clicked close enough to
+  // a train station. It takes in no arguments and returns
+  // nothing.
+  //***********************************
   private boolean isCloseEnough(Component comp, Event event)
   {
     if((comp instanceof Station) && (event instanceof MouseEvent))
@@ -59,7 +66,6 @@ public class CanvasListener implements EventHandler
       if(difx < Reference.length && difx > 0 &&
          dify < Reference.length && dify > 0)
       {
-        System.out.println("Station " + ((Station)comp).getStationName() + " clicked");
         return true;
       }
     }

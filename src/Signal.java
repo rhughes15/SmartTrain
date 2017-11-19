@@ -19,11 +19,14 @@ public class Signal extends Component
   private Component leftComponent;
   private int length = Reference.length;
   private int y = Reference.y;
-  private boolean locked;
   private boolean green = false;
   private boolean sending = true;
   private ArrayList<Component> path;
   private String message;
+  public void setGreen(boolean green)
+  {
+    this.green = green;
+  }
 
   public Signal(int trackX, int trackY,Component leftComponent)
   {
@@ -34,7 +37,11 @@ public class Signal extends Component
     guiX = length * this.getTrackX() + 55;
     guiY =  y * this.getTrackY() + 200;
   }
-
+  //**********************************
+  // This is the method that is responsible for
+  // displaying each component. It takes in a graphics context
+  // and returns nothing.
+  //***********************************
   @Override
   public void display(GraphicsContext gc)
   {
@@ -44,7 +51,12 @@ public class Signal extends Component
     gc.fillOval(length/2 + length*this.getTrackX()+40, y*this.getTrackY() + 175 , 20, 20);
     gc.strokeLine(guiX, guiY, length + length * this.getTrackX() + 44, y * this.getTrackY() + 200);
   }
-
+  //**********************************
+  // This is the method for transferring the pathfinding
+  // messages. This acts like a setter for message, path,
+  // and sending. Additionally, it calls notify on the
+  // runnable component.
+  //***********************************
   @Override
   public synchronized void acceptMessage(String message, ArrayList<Component> path, boolean sending)
   {
@@ -54,9 +66,15 @@ public class Signal extends Component
     this.notify();
 
   }
+  //**********************************
+  // This is the method that is run when notify is called
+  // on a runnable component. This is where most of the message
+  // passing logic exists. It takes in a String, ArrayList, and
+  // boolean and returns nothing.
+  //***********************************
+  @Override
   public void messageAccepted(String message, ArrayList<Component> path, boolean sending)
   {
-    //if(!sending)System.out.println(this.getClass());
     if(message.length() == 2)
     {
 
@@ -79,11 +97,11 @@ public class Signal extends Component
   @Override
   public void run()
   {
-
-    synchronized (this)
+    while (true)
     {
-      while (true)
+      synchronized (this)
       {
+
         try
         {
           this.wait();
@@ -91,9 +109,9 @@ public class Signal extends Component
         {
           e.printStackTrace();
         }
-        messageAccepted(message,path, sending);
-        message = "";
+
       }
+      messageAccepted(message,path, sending);
     }
   }
 

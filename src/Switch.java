@@ -44,6 +44,12 @@ public abstract class Switch extends Component
     partnerComponent = component;
   }
 
+  //**********************************
+  // This is the method for transferring the pathfinding
+  // messages. This acts like a setter for message, path,
+  // and sending. Additionally, it calls notify on the
+  // runnable component.
+  //***********************************
   @Override
   public synchronized void acceptMessage(String message, ArrayList<Component> path, boolean sending)
   {
@@ -52,9 +58,15 @@ public abstract class Switch extends Component
     this.sending = sending;
     this.notify();
   }
+  //**********************************
+  // This is the method that is run when notify is called
+  // on a runnable component. This is where most of the message
+  // passing logic exists. It takes in a String, ArrayList, and
+  // boolean and returns nothing.
+  //***********************************
+  @Override
   public void messageAccepted(String message, ArrayList<Component> path, boolean sending)
   {
-    //if(!sending)System.out.println(this.getClass());
     if(path != null && sending) path.add(this);
     boolean rightToLeft = message.substring(0, 1).compareTo(message.substring(1)) > 0;
     if (rightToLeft) // message going right to left
@@ -72,10 +84,11 @@ public abstract class Switch extends Component
   @Override
   public void run()
   {
-    synchronized (this)
+    while (true)
     {
-      while (true)
+      synchronized (this)
       {
+
           try
           {
             this.wait();
@@ -83,11 +96,18 @@ public abstract class Switch extends Component
           {
             e.printStackTrace();
           }
-          messageAccepted(message, path, sending);
+
       }
+      messageAccepted(message, path, sending);
     }
   }
 
+  //**********************************
+  // This is the method that is responsible for
+  // displaying each component. It takes in a graphics context
+  // and returns nothing.
+  //***********************************
+  @Override
   public void display(GraphicsContext gc)
   {
     if(train != null) train.display(gc);

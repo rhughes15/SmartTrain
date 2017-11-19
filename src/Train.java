@@ -17,51 +17,52 @@ import java.util.ArrayList;
 
 public class Train
 {
+  public void setCurrentComponent(Component currentComponent)
+  {
+    this.currentComponent = currentComponent;
+  }
   private Component currentComponent;
-  private int x, y, dx, dy, destx, desty;
+  private ArrayList<Component> path;
   private Image image;
-
+  private boolean flipped= false;
   public Train(Component component)
   {
     currentComponent = component;
-    x = 100;
-    y = 100;
-    dx = dy = 0;
+    Station c =(Station)currentComponent;
+    path=c.getPath();
     image = new Image("resources/Train.png");
-
   }
 
-  public synchronized void travel(ArrayList<Component> path)
-  {
-    if (path == null) System.out.println("Station Unreachable");
-    System.out.println("Train path: ");
-    for(Component c : path)
-    {
-      if (c instanceof Track) System.out.print("T ");
-      else if (c instanceof Signal) System.out.print("Si ");
-      else if (c instanceof Switch) System.out.print("Sw ");
-      else if (c instanceof Station) System.out.println("Station " + ((Station) c).getStationName());
-    }
-
-  }
-
-  public void move(int newx, int newy)
-  {
-    dx = (newx - x)/60;
-    dy = (newy - y)/60;
-    destx = newx;
-    desty = newy;
-  }
-
-  public void update()
-  {
-    if(x != destx) x += dx;
-    if(y != desty) y += dy;
-  }
-
+  //**********************************
+  // This is the method that is responsible for
+  // displaying the train component. It takes in a graphics context
+  // and returns nothing.
+  //***********************************
   public synchronized void display(GraphicsContext gc)
   {
-    gc.drawImage(image,currentComponent.getGuiX(), currentComponent.getGuiY()-20);
+
+    if(currentComponent==null);
+    else if(flipped && currentComponent instanceof Station) gc.drawImage(image,currentComponent.getGuiX()+90, currentComponent.getGuiY()-20 + Reference.length,-90,23);
+    else if(flipped) gc.drawImage(image,currentComponent.getGuiX()+90, currentComponent.getGuiY()-20 ,-90,23);
+    else if(currentComponent instanceof Station) gc.drawImage(image,currentComponent.getGuiX(), currentComponent.getGuiY()-20 + Reference.length);
+    else gc.drawImage(image,currentComponent.getGuiX(), currentComponent.getGuiY()-20);
+  }
+  public boolean isFlipped()
+  {
+    return flipped;
   }
 
+  public void setFlipped(boolean flipped)
+  {
+    this.flipped = flipped;
+  }
+  public ArrayList<Component> getPath()
+  {
+    return path;
+  }
+
+  public void setPath(ArrayList<Component> path)
+  {
+    this.path = path;
+  }
 }

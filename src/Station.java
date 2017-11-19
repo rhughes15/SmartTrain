@@ -15,11 +15,8 @@ import java.util.ArrayList;
 
 public class Station extends Component
 {
-
-
   private Component track, leftComponent;
   private String stationName;
-  private Train train;
   private ArrayList<Component> path;
   private String message;
   private boolean sending;
@@ -32,7 +29,12 @@ public class Station extends Component
     guiX = Reference.length * trackX + 50;
     guiY = Reference.y * trackY + 200 - Reference.length;
   }
-
+  //**********************************
+  // This is the method that is responsible for
+  // displaying each component. It takes in a graphics context
+  // and returns nothing.
+  //***********************************
+  @Override
   public void display(GraphicsContext gc)
   {
     if (train != null) train.display(gc);
@@ -52,7 +54,12 @@ public class Station extends Component
     else this.track = leftComponent;
   }
 
-
+  //**********************************
+  // This is the method for transferring the pathfinding
+  // messages. This acts like a setter for message, path,
+  // and sending. Additionally, it calls notify on the
+  // runnable component.
+  //***********************************
   @Override
   public synchronized void acceptMessage(String message, ArrayList<Component> path, boolean sending)
   {
@@ -61,84 +68,59 @@ public class Station extends Component
     this.sending = sending;
     this.notify();
   }
+
+  //**********************************
+  // This is the method that is run when notify is called
+  // on a runnable component. This is where most of the message
+  // passing logic exists. It takes in a String, ArrayList, and
+  // boolean and returns nothing.
+  //***********************************
+  @Override
   public void messageAccepted(String message, ArrayList<Component> path, boolean sending)
   {
-
     if (sending && stationName.equalsIgnoreCase(message.substring(1)))
     {
       path.add(this);
-      System.out.println("Message Received at Station " + stationName + ": " + message);
-      System.out.print("path: ");
-      for (Component c : path)
-      {
-        if (c instanceof Track) System.out.print("T ");
-        else if (c instanceof Signal) System.out.print("Si ");
-        else if (c instanceof Switch) System.out.print("Sw ");
-        else if (c instanceof Station) System.out.println("Station " + ((Station) c).getStationName());
-      }
-      System.out.println(message.substring(1) + message.substring(0, 1));
       track.acceptMessage(message.substring(1) + message.substring(0, 1), path, false);
 
-    } else if (sending && path != null)
-    {
-      System.out.println("Message Received at Station " + stationName + ": " + message);
-      System.out.println("Wrong station");
-      //System.out.print("path: ");
-//      for (Component c : path)
-//      {
-//        if (c instanceof Track) System.out.print("T ");
-//        else if (c instanceof Signal) System.out.print("Si ");
-//        else if (c instanceof Switch) System.out.print("Sw ");
-//        else if (c instanceof Station) System.out.println("Station " + ((Station) c).getStationName());
-//      }
     }
-    if (!sending && stationName.equalsIgnoreCase(message.substring(1)))
+    else if (!sending && stationName.equalsIgnoreCase(message.substring(1)))
     {
-      System.out.println("Message Received at Station " + stationName + ": " + message);
-      System.out.print("path: ");
-      for (Component c : path)
-      {
-        if (c instanceof Track) System.out.print("T ");
-        else if (c instanceof Signal) System.out.print("Si ");
-        else if (c instanceof Switch) System.out.print("Sw ");
-        else if (c instanceof Station) System.out.println("Station " + ((Station) c).getStationName());
-      }
-      track.setTrain(new Train(track));
+      setTrain(new Train(this));
+      if(this.stationName.charAt(0)>'S') train.setFlipped(true);
+      train.getPath().get(0).acceptTrain(train, 0, false);
 
-      if (train != null)
-      {
-        train.travel(path);
-      }
     }
   }
+
   @Override
   public void run()
   {
-    synchronized (this)
+    while (true)
     {
-      while (true)
+      synchronized (this)
       {
+
         try
         {
           this.wait();
         } catch (Exception InterruptedException)
         {
         }
-        messageAccepted(message,path,sending);
       }
-    }
-  }
 
+      messageAccepted(message, path, sending);
+    }
+
+  }
+  public ArrayList<Component> getPath()
+  {
+    return path;
+  }
   public Component getTrack()
   {
     return track;
   }
-
-  public void setTrain(Train train)
-  {
-    this.train = train;
-  }
-
   public synchronized String getStationName()
   {
     return stationName;

@@ -1,5 +1,6 @@
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -12,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +50,12 @@ public class GUI
     stage.setScene(welcomeScreen());
     stage.setTitle("Smart Train");
   }
-
+  //**********************************
+  // This method displays the initial starting screen. This is
+  // the scene that the user sees when he/she first starts
+  // up the program. It takes in no arguments and returns
+  // a scene.
+  //***********************************
   private Scene welcomeScreen()
   {
     Label labelTitle = new Label("Smart Train");
@@ -70,10 +77,21 @@ public class GUI
     return scene;
 
   }
-
+  //**********************************
+  // This method displays the actual simulation scene. This is
+  // the scene that the user sees when he/she first clicks
+  // "Start Simulation". It takes in no arguments and returns
+  // a scene.
+  //***********************************
   private Scene drawBoard(List<Component> componentList)
   {
-
+    stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+      @Override
+      public void handle(WindowEvent t) {
+        Platform.exit();
+        System.exit(0);
+      }
+    });
     Group root = new Group();
     Canvas canvas = new Canvas(1200, 800);
     canvas.setOnMouseClicked(new CanvasListener(stationList));
@@ -84,7 +102,11 @@ public class GUI
     Scene trainScene = new Scene(root, 1200, 800);
     return trainScene;
   }
-
+  //**********************************
+  // This method updates the display of all components.
+  // It is called 60 times per second by the timer class.
+  // It takes in no arguments and returns nothing.
+  //***********************************
   public void updateAllComponents()
   {
     gc.clearRect(0,0,1200,800);

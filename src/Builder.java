@@ -36,7 +36,11 @@ public class Builder
     {
         return componentList;
     }
-
+    //**********************************
+    // This method reads the components from a JSON file and
+    // creates all of the train components. It takes in no
+    // arguments and returns nothing.
+    //***********************************
     private void buildTracksFromJSON()
     {
         JSONParser parser = new JSONParser();
